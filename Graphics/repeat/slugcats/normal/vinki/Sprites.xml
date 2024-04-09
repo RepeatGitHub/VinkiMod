@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+
+<!-- This xml file allows you to change all sprites in the game just like regular Skin Mod Helper -->
+
+  <payphone path="characters/repeat/vinki/normal/cutscenes/payphone/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="phone" delay="0.1" frames="0"/>
+    <Anim id="pickUp" path="phone" delay="0.08" frames="1-11"/>
+    <Loop id="talkPhone" path="phone" delay="0.08" frames="11"/>
+    <Anim id="jumpBack" path="phone" delay="0.08" frames="12-17"/>
+    <Anim id="scare" path="phone" delay="0.08" frames="18-21"/>
+    <Anim id="transform" path="phone" delay="0.08" frames="22-45" />
+    <Anim id="eat" path="phone" delay="0.08" frames="46-73,83*2,84*2,85*2,86*2,87*2,74-82"/>
+    <Loop id="monsterIdle" path="phone" delay="0.2" frames="83-87"/>
+  </payphone>
+
+  <lookout path="characters/repeat/vinki/normal/objects/lookout/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="lookout" delay="0.1" frames="5*9,6"/>
+    <Anim id="lookRight" path="lookout" delay="0.08" frames="0-4" goto="looking"/>
+    <Anim id="lookLeft" path="lookout" delay="0.08" frames="15-17,3,4" goto="looking"/>
+    <Loop id="looking" path="lookout" delay="0.08" frames="4"/>
+    <Loop id="lookingUp" path="lookout" frames="7"/>
+    <Loop id="lookingUpRight" path="lookout" frames="8"/>
+    <Loop id="lookingRight" path="lookout" frames="9"/>
+    <Loop id="lookingDownRight" path="lookout" frames="10"/>
+    <Loop id="lookingDown" path="lookout" frames="11"/>
+    <Loop id="lookingDownLeft" path="lookout" frames="12"/>
+    <Loop id="lookingLeft" path="lookout" frames="13"/>
+    <Loop id="lookingUpLeft" path="lookout" frames="14"/>
+
+  </lookout>
+
+#  <vinki_gui path="Gui/hover/" start="highlight">
+#    <Loop id="highlight" path="highlight" delay="0.1" />
+#  </vinki_gui>
+  
+  <CollabUtils2_sitBench path="CollabUtils2/characters/repeat/vinki/normal/" start="sit">
+    <Justify x="0.5" y="1.0"/>
+    <Anim id="sit" path="sitBench" delay=".08" frames="0-17"/>
+    <Anim id="sitHair" path="sitBenchHair" delay=".08" frames="0"/>
+  </CollabUtils2_sitBench>
+  
+  <HonlyHelper_CatPetter path="HonlyHelper/characters/repeat/vinki/normal/" start="pet">
+    <Loop id="pet" path="player_pet" delay="0.15"/>
+  </HonlyHelper_CatPetter>
+
+
+</Sprites>

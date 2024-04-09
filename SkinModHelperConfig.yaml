@@ -1,0 +1,20 @@
+# Please use vscode for better code folding
+
+# You can make the silhouette skins usable as player skins here by changing the "PlayerList" setting to true. 
+# Other people on CelesteNet can see the silhouette.
+
+
+# Player Skins
+
+    # ---Da Vinki---
+  - SkinName: "Vinki_Scug"
+    Player_List: true
+    Character_ID: "vinki_scug"
+    OtherSprite_Path: "repeat/slugcats/normal/vinki"
+
+# Other Skins
+
+# Vinki GUI
+#  - SkinName: "Vinki_Gui"
+#    General_List: true
+#    OtherSprite_ExPath: "repeat/slugcats/normal/vinki"

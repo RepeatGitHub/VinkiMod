@@ -1,0 +1,12 @@
+HairColors:
+- Dashes: 2
+  Color: "167898"
+
+- Dashes: 1
+  Color: "ffffff"
+
+- Dashes: 0
+  Color: "a7a7a7"
+
+HairFlash: false
+OutlineColor: "303030"

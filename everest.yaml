@@ -1,0 +1,8 @@
+- Name: VinkiMod
+  Version: 1.0.0
+  DLL: bin/Mods.dll
+  Dependencies:
+    - Name: Everest
+      Version: 1.4465.0
+    - Name: SkinModHelperPlus
+      Version: 0.9.0
