@@ -44,17 +44,10 @@ public class VinkiModModule : EverestModule {
         //Logger.SetLogLevel(nameof(ModsModule), LogLevel.Info);
 //#endif
     }
-    //public static FieldInfo vinkiSkinLoaded;
-    //EverestModuleMetadata skinModHelperPlus = new() {
-    //    Name = "SkinModHelperPlus",
-    //    Version = new Version(0,9,0)
-    //};
 
     public override void Load() {
-        //Logger.Log(LogLevel.Debug, "VinkiMod", "Obama");
         Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
         Everest.Events.Level.OnEnter += triggerVinkiGUI2;
-        //Logger.Log(LogLevel.Debug, "VinkiMod", "Obama 2");
         On.Celeste.Player.Update += vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
     }
@@ -76,24 +69,8 @@ public class VinkiModModule : EverestModule {
         if (SaveData.settingsArtChanged.Length<textureNamespaces.Length) {
             for (var a=SaveData.settingsArtChanged.Length;a<textureNamespaces.Length;a=SaveData.settingsArtChanged.Length) {
                 SaveData.settingsArtChanged=SaveData.settingsArtChanged.Append(false).ToArray();
-                //Logger.Log(LogLevel.Info, "VinkiMod", SaveData.settingsArtChanged.Length.ToString()+" "+textureNamespaces.Length.ToString());
             }
         } // above used to be in graffitisetup
-        //if (Everest.Loader.TryGetDependency(Instance.skinModHelperPlus, out EverestModule skinModule)) {
-            //Assembly skinAssembly = skinModule.GetType().Assembly;
-            //Type skinModule2 = skinAssembly.GetType("Celeste.Mod.SkinModHelper.SkinModHelperSession");
-            //if (skinModule2==null) {
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "Uh oh, looks like SkinModHelperPlus's module is being wack!");
-            //} else {
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "SkinModHelperPlus found successfully!");
-            //}
-            //Logger.Log(LogLevel.Info, "VinkiMod", SkinModHelperModule.GetPlayerSkinName(-1));
-            //object skinModule3 = skinModule2.GetField("GetPlayerSkinName");
-            //DynamicData skinData = DynamicData.For(skinModule3);
-            //vinkiSkinLoaded = skinModule2.GetField("GetPlayerSkinName", BindingFlags.Public | BindingFlags.Static);
-            //Logger.Log(LogLevel.Info, "VinkiMod", skinData.Get<string>("GetPlayerSkinName"));
-        //}
-        //if (Instance.vinkiSkinLoaded?.GetValue(null).ToString()=="Vinki") {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/vinki/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/vinki/idle"];
@@ -105,8 +82,6 @@ public class VinkiModModule : EverestModule {
             GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
             GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
         }
-        //}
-        //Logger.Log(LogLevel.Info, "VinkiMod", "Obama");
     }
 
     private static void graffitiSetup(Session session) {
@@ -118,24 +93,6 @@ public class VinkiModModule : EverestModule {
                     GFX.Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
                 }
             }
-            //if (Celeste.Instance.scene!=null) {
-            //if (AreaData.Get(Celeste.Instance.scene).SID!=null) {
-            //if (Array.IndexOf(hasArtSpots,AreaData.Get(Celeste.Instance.scene).Name.DialogCleanOrNull(Dialog.Languages["english"]))!=-1) {
-            //    Session.sessionArtSpots=artSpots[Array.IndexOf(hasArtSpots,AreaData.Get(Celeste.Instance.scene).Name.DialogCleanOrNull(Dialog.Languages["english"]))];
-            //}
-            //Logger.Log(LogLevel.Info, "VinkiMod", session.Area.SID);
-            //}
-            //}
-            // see the vinkibuttonpress for what was gonna be here
-
-            //if (Celeste.Instance.scene!=null)
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "4");
-            //if (AreaData.Get(Celeste.Instance.scene)!=null)
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "3");
-            //if (AreaData.Get(Celeste.Instance.scene).Name!=null)
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "2");
-            //if (AreaData.Get(Celeste.Instance.scene).Name.DialogCleanOrNull(Dialog.Languages["english"])!=null)
-            //    Logger.Log(LogLevel.Info, "VinkiMod", "1");
         } else {
             ARRGH_NOTEXTURES_FORYE();
         }
@@ -148,7 +105,6 @@ public class VinkiModModule : EverestModule {
             if (!Session.sessionStuffLoaded) {
                 if (Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID)!=-1) {
                     Session.sessionArtSpots=artSpots[Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID)];
-                    //Logger.Log(LogLevel.Warn, "VinkiMod", Session.sessionArtSpots.Length.ToString());
                 }
                 Session.sessionStuffLoaded=true;
             }
@@ -164,13 +120,10 @@ public class VinkiModModule : EverestModule {
                                 doGraffiti(Session.sessionArtSpots[a][4]);
                             }
                             a=Session.sessionArtSpots.Length;
-                            //Logger.Log(LogLevel.Warn, "VinkiMod", "BOING");
                         } else {
-                            //Logger.Log(LogLevel.Warn, "VinkiMod", Session.sessionArtSpots[a][0].ToString());
                         }
                     }
                 }
-                //Logger.Log(LogLevel.Warn, "VinkiMod", "x"+self.X.ToString()+"y"+self.Y.ToString());
             }
         }
     }
