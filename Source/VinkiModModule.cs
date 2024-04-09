@@ -31,7 +31,7 @@ public class VinkiModModule : EverestModule {
     public static String[] textureUnReplaceNamespaces = ["scenery/madeline/car/body"];
     public static String[] hasArtSpots = ["Celeste/0-Intro"];
     public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory,tempx,tempy
-        [[-180,120,80,50,0,10,12]]
+        [[-180,120,80,50,0,-182,136]]
     ];
 
     public VinkiModModule() {
@@ -65,7 +65,12 @@ public class VinkiModModule : EverestModule {
         graffitiSetup(session);
     }
     private static void vinkiGUI() {
-        //Session.vinkiRenderIt[4]=-1;
+        if (Session.vinkiRenderIt.Length<7) {
+            for (var a=Session.vinkiRenderIt.Length;a<7;a=Session.vinkiRenderIt.Length) {
+                Session.vinkiRenderIt=Session.vinkiRenderIt.Append(0).ToArray();
+            }
+        }
+        Session.vinkiRenderIt[4]=-1;
         if (SaveData.settingsArtChanged.Length<textureNamespaces.Length) {
             for (var a=SaveData.settingsArtChanged.Length;a<textureNamespaces.Length;a=SaveData.settingsArtChanged.Length) {
                 SaveData.settingsArtChanged=SaveData.settingsArtChanged.Append(false).ToArray();
@@ -114,9 +119,10 @@ public class VinkiModModule : EverestModule {
                         // collision
                         int[] wh = [8,12];
                         if (self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
-                            Session.vinkiRenderIt = [1,self.X,self.Y,Session.vinkiRenderIt[3],-1,Session.sessionArtSpots[a][5],Session.sessionArtSpots[a][6]];
+                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator, which texture for GraffitiTemp (-1 is off), x of GraffitiTemp, y of GraffitiTemp]
+                            Session.vinkiRenderIt = [1,Convert.ToInt16(self.X),Convert.ToInt16(self.Y),Session.vinkiRenderIt[3],Session.vinkiRenderIt[4],Session.sessionArtSpots[a][5],Session.sessionArtSpots[a][6]];
                             if (Settings.GraffitiButton.Pressed) {
-                                Session.vinkiRenderIt[4]=1;
+                                //Session.vinkiRenderIt[4]=Session.sessionArtSpots[a][4];
                                 doGraffiti(Session.sessionArtSpots[a][4]);
                             }
                             a=Session.sessionArtSpots.Length;
@@ -125,6 +131,9 @@ public class VinkiModModule : EverestModule {
                     }
                 }
             }
+        }
+        if (Session.vinkiRenderIt[4]!=-1) {
+            //Logger.Log(LogLevel.Warn,"VinkiMod",(GFX.Game[textureReplaceNamespaces[Session.vinkiRenderIt[4]]]!=null).ToString());
         }
     }
 
@@ -138,6 +147,7 @@ public class VinkiModModule : EverestModule {
     public static void doGraffiti(int whichTexture) {
         SaveData.settingsArtChanged[whichTexture]=true;
         GFX.Game[textureNamespaces[whichTexture]]=GFX.Game[textureReplaceNamespaces[whichTexture]];
+        Session.vinkiRenderIt[4]=whichTexture;
     }
 
     public static void ARRGH_NOTEXTURES_FORYE() {

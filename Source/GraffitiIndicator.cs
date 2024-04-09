@@ -35,7 +35,7 @@ public class GraffitiIndicator : Entity { // this should not show up in ahorn/lo
         base.Render();
 
         if (VinkiModModule.Session.vinkiRenderIt[0]!=0) {
-            GFX.Gui["vinki/graffiti-icon_"+VinkiModModule.Session.vinkiRenderIt[3]].Draw(new Microsoft.Xna.Framework.Vector2 (VinkiModModule.Session.vinkiRenderIt[1]-1,VinkiModModule.Session.vinkiRenderIt[2]-27));
+            GFX.Gui["vinki/graffiti-icon_"+VinkiModModule.Session.vinkiRenderIt[3]].Draw(new Microsoft.Xna.Framework.Vector2 (VinkiModModule.Session.vinkiRenderIt[1]-2,VinkiModModule.Session.vinkiRenderIt[2]-27));
         }
     }
 }
