@@ -11,9 +11,9 @@ HairColors:
   Color: "FFA240"
   SegmentsColors:
   - Segment: 1
-    Color: "4E4BFC"
+    Color: "4d38fc"
   - Segment: 3
-    Color: "4E4BFC"
+    Color: "4d38fc"
 
 - Dashes: 0
   Color: "4E4BFC"
