@@ -81,11 +81,23 @@ public class VinkiModModule : EverestModule {
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/vinki/idle"];
             GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
             GFX.Game["pico8/consolebg"] = GFX.Game["pico8/vinki/consolebg"];
+            GFX.Portraits["hug-light1"] = GFX.Game["Portraits/vinki/hug-light1"];
+            GFX.Portraits["hug-light2a"] = GFX.Game["Portraits/vinki/hug-light2a"];
+            GFX.Portraits["hug-light2b"] = GFX.Game["Portraits/vinki/hug-light2b"];
+            GFX.Portraits["hug-light2c"] = GFX.Game["Portraits/vinki/hug-light2c"];
+            GFX.Portraits["hug1"] = GFX.Game["Portraits/vinki/hug1"];
+            GFX.Portraits["hug2"] = GFX.Game["Portraits/vinki/hug2"];
         } else {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/madeline/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/madeline/idle"];
             GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
             GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
+            GFX.Portraits["hug-light1"] = GFX.Game["Portraits/madeline/hug-light1"];
+            GFX.Portraits["hug-light2a"] = GFX.Game["Portraits/madeline/hug-light2a"];
+            GFX.Portraits["hug-light2b"] = GFX.Game["Portraits/madeline/hug-light2b"];
+            GFX.Portraits["hug-light2c"] = GFX.Game["Portraits/madeline/hug-light2c"];
+            GFX.Portraits["hug1"] = GFX.Game["Portraits/madeline/hug1"];
+            GFX.Portraits["hug2"] = GFX.Game["Portraits/madeline/hug2"];
         }
     }
 
