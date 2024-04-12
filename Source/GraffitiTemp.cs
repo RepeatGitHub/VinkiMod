@@ -17,17 +17,14 @@ namespace Celeste.Mod.VinkiMod;
 public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn hopefully
    public GraffitiTemp() {
         Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
+        AddTag(Tags.Persistent);
     }
 
     public override void Update() {
         base.Update();
 
         // thank u extended variants
-        if (Collider != null && CollideAll<Solid>().Any(solid => solid.Depth < (Depths.FGTerrain + Depths.FGDecals) / 2)) {
-            Depth = Depths.FakeWalls - 1;
-        } else {
-            Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
-        }
+        Depth = (Depths.BGTerrain + Depths.BGDecals) / 2;
     }
 
     public override void Render() {

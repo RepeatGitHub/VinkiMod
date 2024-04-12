@@ -31,7 +31,7 @@ public class VinkiModModule : EverestModule {
     public static String[] textureUnReplaceNamespaces = ["scenery/madeline/car/body"];
     public static String[] hasArtSpots = ["Celeste/0-Intro"];
     public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory,tempx,tempy
-        [[-180,120,80,50,0,-182,136]]
+        [[-180,120,80,50,0,-192,135]]
     ];
 
     public VinkiModModule() {
@@ -145,7 +145,7 @@ public class VinkiModModule : EverestModule {
             }
         }
         if (Session.vinkiRenderIt[4]!=-1) {
-            //Logger.Log(LogLevel.Warn,"VinkiMod",(GFX.Game[textureReplaceNamespaces[Session.vinkiRenderIt[4]]]!=null).ToString());
+            //Logger.Log(LogLevel.Warn,"VinkiMod",Session.vinkiRenderIt[4].ToString());
         }
     }
 
