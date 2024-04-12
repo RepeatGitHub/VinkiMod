@@ -15,7 +15,7 @@ using Monocle;
 namespace Celeste.Mod.VinkiMod;
 
 public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn hopefully
-   public GraffitiTemp() {
+    public GraffitiTemp() {
         Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
         AddTag(Tags.Persistent);
     }
@@ -23,8 +23,9 @@ public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn ho
     public override void Update() {
         base.Update();
 
-        // thank u extended variants
-        Depth = (Depths.BGTerrain + Depths.BGDecals) / 2;
+        // thank u extended variants but im not using this
+        //Depth = (Depths.BGTerrain + Depths.BGDecals) / 2;
+        Depth = 1;
     }
 
     public override void Render() {

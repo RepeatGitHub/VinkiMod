@@ -50,6 +50,7 @@ public class VinkiModModule : EverestModule {
         Everest.Events.Level.OnEnter += triggerVinkiGUI2;
         On.Celeste.Player.Update += vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
+        On.Celeste.IntroCar.Added += introCarScrewery;
     }
 
     public override void Unload() {
@@ -57,6 +58,7 @@ public class VinkiModModule : EverestModule {
         Everest.Events.Level.OnEnter -= triggerVinkiGUI2;
         On.Celeste.Player.Update -= vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread -= vinkiRenderer;
+        On.Celeste.IntroCar.Added -= introCarScrewery;
     }
 
     private static void triggerVinkiGUI1(Level level, LevelData next, Microsoft.Xna.Framework.Vector2 direction) {vinkiGUI();}
@@ -154,6 +156,9 @@ public class VinkiModModule : EverestModule {
             self.Add(new GraffitiIndicator());
             self.Add(new GraffitiTemp());
         }
+        if (Array.IndexOf(hasArtSpots,self.Session.Area.SID)==0) {
+            self.Session.LevelData.Entities[2].Values["depth"]=2;
+        }
     }
     
     public static void doGraffiti(int whichTexture) {
@@ -167,5 +172,10 @@ public class VinkiModModule : EverestModule {
             GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
         }
         // put whatever texture reloader thingy from doGraffiti here
+    }
+
+    public static void introCarScrewery(On.Celeste.IntroCar.orig_Added orig, IntroCar self, Monocle.Scene scene) {
+        orig(self,scene);
+        self.Depth=2;
     }
 }
