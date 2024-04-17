@@ -115,6 +115,8 @@ public class VinkiModModule : EverestModule {
                 if (SaveData.settingsArtChanged[a]) {
                     GFX.Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
                     Logger.Log(LogLevel.Warn,"VinkiMod",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
+                } else {
+                    GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
                 }
             }
         } else {
