@@ -58,22 +58,28 @@ public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn ho
         byte effects
     ) {
         var among = -1;
-        //for (var a=0;a<VinkiModModule.SaveData.settingsArtChanged.Length;a++) {
-        //    if (texturee == GFX.Game[VinkiModModule.textureNamespaces[a]].Texture.Texture) {
-        //        among=a;
-        //    }
-        //}
+        if (VinkiModModule.SaveData!=null) {
+            if (VinkiModModule.SaveData.settingsArtChanged.Length>=VinkiModModule.textureNamespaces.Length) {
+                for (var a=0;a<VinkiModModule.textureNamespaces.Length;a++) {
+                    if (VinkiModModule.SaveData.settingsArtChanged[a]) {
+                        if (texturee == GFX.Game[VinkiModModule.textureNamespaces[a]].Texture.Texture) {
+                            among=a;
+                        }
+                    }
+                }
+            }
+        }
         if (among>-1) {
-        //    orig(
-        //        batch,
-        //        ((Monocle.VirtualTexture)(object)GFX.Game[VinkiModModule.textureNamespaces[among]].Texture).Texture_Safe,
-        //        sourceX, sourceY, sourceW, sourceH,
-        //        destinationX, destinationY, destinationW, destinationH,
-        //        color,
-        //        originX, originY, rotationSin, rotationCos,
-        //        depth,
-        //        effects
-        //    );
+            orig(
+                batch,
+                GFX.Game[VinkiModModule.textureReplaceNamespaces[among]].Texture.Texture,
+                sourceX, sourceY, sourceW, sourceH,
+                destinationX, destinationY, destinationW, destinationH,
+                color,
+                originX, originY, rotationSin, rotationCos,
+                depth,
+                effects
+            );
         } else {
             orig(
                 batch,

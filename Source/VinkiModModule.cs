@@ -80,17 +80,21 @@ public class VinkiModModule : EverestModule {
         graffitiSetup(session);
     }
     private static void vinkiGUI() {
+        // This here is a failsafe for whenever the Session.vinkiRenderIt is shorter than it should be.
         if (Session.vinkiRenderIt.Length<7) {
             for (var a=Session.vinkiRenderIt.Length;a<7;a=Session.vinkiRenderIt.Length) {
                 Session.vinkiRenderIt=Session.vinkiRenderIt.Append(0).ToArray();
             }
         }
+        // This line sets the GraffitiTemp rendering to off.
         Session.vinkiRenderIt[4]=-1;
+        // This here is setting up the SaveData.settingsArtChanged to match the same length as textureNamespaces.
         if (SaveData.settingsArtChanged.Length<textureNamespaces.Length) {
             for (var a=SaveData.settingsArtChanged.Length;a<textureNamespaces.Length;a=SaveData.settingsArtChanged.Length) {
                 SaveData.settingsArtChanged=SaveData.settingsArtChanged.Append(false).ToArray();
             }
-        } // above used to be in graffitisetup
+        }
+        // This section just replaces all the textures for Vinki that aren't graffiti-related.
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/vinki/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/vinki/idle"];
@@ -117,6 +121,7 @@ public class VinkiModModule : EverestModule {
     }
 
     private static void graffitiSetup(Session session) {
+        // The below two lines make the graffiti indicator randomized between all the existing textures with GFX.Gui["vinki/graffiti-icon_"] and a number.
         var rand = new Random();
         Session.vinkiRenderIt[3]=rand.Next(0,3);
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
@@ -129,12 +134,15 @@ public class VinkiModModule : EverestModule {
                 }
             }
         } else {
-            ARRGH_NOTEXTURES_FORYE();
+            // If Vinki's skin isn't on, it just goes AARRRGGHHH NO TEXTURES FOR YE
+            //ARRGH_NOTEXTURES_FORYE();
         }
     }
 
     public static void vinkiButtonPress(On.Celeste.Player.orig_Update orig, Player self) {
+        // Before anything, the original Update function runs.
         orig(self);
+        // Then, the graffiti indicator is turned off.
         Session.vinkiRenderIt[0]=0;
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             if (!Session.sessionStuffLoaded) {
@@ -162,15 +170,14 @@ public class VinkiModModule : EverestModule {
                 }
             }
         }
-        if (Session.vinkiRenderIt[4]!=-1) {
-            //Logger.Log(LogLevel.Warn,"VinkiMod",Session.vinkiRenderIt[4].ToString());
-        }
     }
 
     private static void vinkiRenderer(Level self) {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+            // If Vinki's Skin is enabled, it adds these entities to the level first.
             self.Add(new GraffitiIndicator());
             self.Add(new GraffitiTemp());
+            // Also, if you're playing Prologue, the intro car's depth is set to 2. (I think.)
             if (Array.IndexOf(hasArtSpots,self.Session.Area.SID)==0) {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
             }
