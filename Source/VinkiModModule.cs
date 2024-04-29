@@ -3,12 +3,15 @@ using System.Reflection;
 using System.Numerics;
 using MonoMod.Utils;
 using MonoMod.ModInterop;
+using MonoMod.RuntimeDetour;
 using Celeste.Mod.SkinModHelper;
 using Celeste.Mod.UI;
 using System.Linq;
 using IL.Monocle;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Celeste.Mod.VinkiMod;
 
@@ -45,13 +48,18 @@ public class VinkiModModule : EverestModule {
         //Logger.SetLogLevel(nameof(ModsModule), LogLevel.Info);
 //#endif
     }
-
+    private static Hook OnSpriteBatchPushSpriteHook;
     public override void Load() {
         Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
         Everest.Events.Level.OnEnter += triggerVinkiGUI2;
         On.Celeste.Player.Update += vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
         On.Celeste.IntroCar.Added += introCarScrewery;
+        
+        OnSpriteBatchPushSpriteHook = new Hook(
+            typeof(SpriteBatch).GetMethod("PushSprite", BindingFlags.NonPublic | BindingFlags.Instance),
+            typeof(GraffitiTemp).GetMethod("OnSpriteBatchPushSprite", BindingFlags.NonPublic | BindingFlags.Static)
+        );
     }
 
     public override void Unload() {
@@ -60,6 +68,7 @@ public class VinkiModModule : EverestModule {
         On.Celeste.Player.Update -= vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread -= vinkiRenderer;
         On.Celeste.IntroCar.Added -= introCarScrewery;
+        OnSpriteBatchPushSpriteHook?.Dispose();
     }
 
     private static void triggerVinkiGUI1(Level level, LevelData next, Microsoft.Xna.Framework.Vector2 direction) {
@@ -114,7 +123,7 @@ public class VinkiModModule : EverestModule {
             for (var a=0;a<textureNamespaces.Length;a++) {
                 if (SaveData.settingsArtChanged[a]) {
                     GFX.Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
-                    Logger.Log(LogLevel.Warn,"VinkiMod",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
+                    Logger.Log(LogLevel.Warn,"VinkiMod_graffitiSetup",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
                 } else {
                     GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
                 }
@@ -170,8 +179,9 @@ public class VinkiModModule : EverestModule {
     
     public static void doGraffiti(int whichTexture) {
         SaveData.settingsArtChanged[whichTexture]=true;
-        GFX.Game[textureNamespaces[whichTexture]]=GFX.Game[textureReplaceNamespaces[whichTexture]];
+        //GFX.Game[textureNamespaces[whichTexture]]=GFX.Game[textureReplaceNamespaces[whichTexture]];
         Session.vinkiRenderIt[4]=whichTexture;
+        Logger.Log(LogLevel.Warn,"VinkiMod_doGraffiti",whichTexture.ToString()+" "+textureNamespaces[whichTexture]+" "+textureReplaceNamespaces[whichTexture]);
     }
 
     public static void ARRGH_NOTEXTURES_FORYE() {
