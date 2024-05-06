@@ -38,16 +38,16 @@
     <Loop id="walk" path="walk" delay="0.06" />
     <Loop id="push" path="push" delay="0.1" />
     <Anim id="runSlow" path="runSlow" delay="0.07" goto="runFast" />
-    <Loop id="runFast" path="runFast" delay="0.05" />
+    <Loop id="runFast" path="runSlow" delay="0.05" />
     <Anim id="runStumble" path="runStumble" delay="0.05" frames="10-11,0-11" goto="runFast"/>
     <Loop id="runWind" path="run_wind" delay="0.095" frames="0-11"/>
-    <Loop id="dash" path="dash" delay="0.09" />
+    <Loop id="dash" path="dash" delay="0.09" frames="0" />
     <Anim id="dreamDashIn" path="dreamDash" frames="0-3" delay="0.04" goto="dreamDashLoop"/>
     <Loop id="dreamDashLoop" path="dreamDash" frames="4-16" delay="0.03" />
     <Anim id="dreamDashOut" path="dreamDash" frames="17-20" delay="0.04" />
     <Loop id="slide" path="slide" delay="0.03" />
-    <Loop id="jumpSlow" path="jumpSlow" delay="0.1" frames="0,1" />
-    <Loop id="jumpFast" path="jumpFast" delay="0.1" frames="0,1" />
+    <Loop id="jumpSlow" path="jumpFast" delay="0.1" frames="0,1" />
+    <Loop id="jumpFast" path="jumpSlow" delay="0.1" frames="0,1" />
     <Anim id="fallSlow" path="jumpSlow" delay="0.1" frames="2,3" />
     <Anim id="fallFast" path="jumpFast" delay="0.1" frames="2,3" />
     <Loop id="tired" path="tired" delay="0.18" />
@@ -60,13 +60,13 @@
     <Anim id="climbPull" path="climb" delay="0.04" frames="0,12-14" />
     <Loop id="duck" path="duck" delay="0" frames="0" />
     <Anim id="fallPose" path="fallPose" delay="0.1" frames="0-10" goto="idle"/>
-    <Loop id="edge" path="edge" delay="0.25" frames="0-13" />
-    <Loop id="edgeBack" path="edge_back" delay="0.25"/>
+    <Loop id="edge" path="edge" delay="0.25" frames="0-4" />
+    <Loop id="edgeBack" path="edge_back" delay="0.25" frames="0-4" />
     <Anim id="faint" path="faint" delay="0.1" frames="0-10" goto="fainted" />
     <Loop id="fainted" path="faint" delay="0.1" frames="10" />
-    <Anim id="flip" path="flip" delay="0.04" frames="0-7" goto="runFast"/>
+    <Anim id="flip" path="flip" delay="0.08" frames="0-7" goto="runFast"/>
     <Loop id="skid" path="flip" delay="0.04" frames="8"/>
-    <Loop id="dangling" path="dangling" delay="0.11" frames="0-9" />
+    <Loop id="dangling" path="dangling" delay="0.33" frames="0-3" />
     <Anim id="deadside" path="death_h" delay="0.02" frames="0-12" />
     <Anim id="deadup"   path="death_h" delay="0.02" frames="0-12" />
     <Anim id="deaddown" path="death_h" delay="0.02" frames="0-12" />
@@ -117,7 +117,7 @@
       
       <Frames path="lookUp" hair="x|x|x|x|x|x|x|x|x"/>
       <Frames path="edge" hair="x|x|x|x|x|x|x|x|x|x|x|x|x|x"/>
-      <Frames path="edge_back" hair="1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3"/>
+      <Frames path="edge_back" hair="x|x|x|x|x|x|x|x|x|x|x|x|x|x"/>
       <Frames path="walk" hair="1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3"/>
       <Frames path="push" hair="x|x|x|x|x|x|x|x|x|x|x|x|x|x|x|x"/>
       <Frames path="runSlow" hair="1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3"/>

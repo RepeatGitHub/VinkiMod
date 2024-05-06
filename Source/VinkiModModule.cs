@@ -127,10 +127,10 @@ public class VinkiModModule : EverestModule {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             for (var a=0;a<textureNamespaces.Length;a++) {
                 if (SaveData.settingsArtChanged[a]) {
-                    GFX.Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
+                    //Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
                     Logger.Log(LogLevel.Warn,"VinkiMod_graffitiSetup",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
                 } else {
-                    GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
+                    //GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
                 }
             }
         } else {
@@ -193,7 +193,7 @@ public class VinkiModModule : EverestModule {
 
     public static void ARRGH_NOTEXTURES_FORYE() {
         for (var a=0;a<textureNamespaces.Length;a++) {
-            GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
+            //GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
         }
         // put whatever texture reloader thingy from doGraffiti here
     }
