@@ -215,7 +215,7 @@ public class VinkiModModule : EverestModule {
         ILCursor cursor = new ILCursor(ctx);
         cursor.Emit(Mono.Cecil.Cil.OpCodes.Ldarg_0);
         cursor.EmitDelegate(TextureReplacer);
-        cursor.Emit(Mono.Cecil.Cil.OpCodes.Starg_S,0);
+        cursor.Emit(Mono.Cecil.Cil.OpCodes.Starg,0);
     }
     private static MTexture TextureReplacer(MTexture tex) {
         //Your texture replacement code here
