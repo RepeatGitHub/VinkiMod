@@ -50,7 +50,6 @@ public class VinkiModModule : EverestModule {
         //Logger.SetLogLevel(nameof(ModsModule), LogLevel.Info);
 //#endif
     }
-    private static Hook OnSpriteBatchPushSpriteHook;
     private static List<ILHook> hooks = new List<ILHook>();
     public override void Load() {
         Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
