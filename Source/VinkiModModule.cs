@@ -33,22 +33,14 @@ public class VinkiModModule : EverestModule {
     //but here's the :hunterglee: (the constants)
     public static String[] textureNamespaces = ["scenery/car/body","decals/1-forsakencity/big_sign_b","decals/1-forsakencity/camping_medium","decals/1-forsakencity/hanging_sign","decals/1-forsakencity/big_sign_e","decals/1-forsakencity/big_sign_d","decals/1-forsakencity/big_sign","decals/1-forsakencity/big_sign_c","scenery/memorial/memorial"];
     public static String[] textureReplaceNamespaces = ["scenery/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e","decals/vinki/big_sign_d","decals/vinki/big_sign","decals/vinki/big_sign_c","scenery/vinki/memorial"];
-    public static String[] textureUnReplaceNamespaces = ["scenery/madeline/car/body","decals/madeline/big_sign_b","decals/madeline/camping_medium","decals/madeline/hanging_sign","decals/madeline/big_sign_e","decals/madeline/big_sign_d","decals/madeline/big_sign","decals/madeline/big_sign_c","scenery/madeline/memorial"];
     public static String[] hasArtSpots = ["Celeste/0-Intro","Celeste/1-ForsakenCity"];
-    public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory,tempx,tempy
-        [[-180,120,80,50,0,-192,134]],
-        [[1115,-1072,30,20,1,1104,-1083],[695,-1064,40,30,2,692,-1105],[1742,-1440,38,22,3,1740,-1456],[2233,-1344,40,66,4,2220,-1356],[2665,-1600,20,25,5,2664,-1612],[3340,-1950,70,35,6,3337,-1963],[3465,-2575,75,30,7,3456,-2579],[3985,-3140,40,80,8,3976,-3144]]
+    public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory
+        [[-180,120,80,50,0]],
+        [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]]
     ];
 
     public VinkiModModule() {
         Instance = this;
-//#if DEBUG
-        // debug builds use verbose logging
-        //Logger.SetLogLevel(nameof(ModsModule), LogLevel.Verbose);
-//#else
-        // release builds use info logging to reduce spam in log files
-        //Logger.SetLogLevel(nameof(ModsModule), LogLevel.Info);
-//#endif
     }
     private static List<ILHook> hooks = new List<ILHook>();
     public override void Load() {
@@ -58,10 +50,6 @@ public class VinkiModModule : EverestModule {
         Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
         On.Celeste.IntroCar.Added += introCarScrewery;
         
-        //OnSpriteBatchPushSpriteHook = new Hook(
-        //    typeof(SpriteBatch).GetMethod("PushSprite", BindingFlags.NonPublic | BindingFlags.Instance),
-        //    typeof(GraffitiTemp).GetMethod("OnSpriteBatchPushSprite", BindingFlags.NonPublic | BindingFlags.Static)
-        //);
         foreach(MethodInfo method in typeof(MTexture).GetMethods()) {
             if(!method.Name.StartsWith("Draw")) continue;
             hooks.Add(new ILHook(method, DrawManipulator));
@@ -74,7 +62,7 @@ public class VinkiModModule : EverestModule {
         On.Celeste.Player.Update -= vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread -= vinkiRenderer;
         On.Celeste.IntroCar.Added -= introCarScrewery;
-        //OnSpriteBatchPushSpriteHook?.Dispose();
+        
         hooks.ForEach(h => h.Dispose());
         hooks.Clear();
     }
@@ -89,7 +77,7 @@ public class VinkiModModule : EverestModule {
     }
     private static void vinkiGUI() {
         // This here is a failsafe for whenever the Session.vinkiRenderIt is shorter than it should be.
-        if (Session.vinkiRenderIt.Length<7) {
+        if (Session.vinkiRenderIt.Length<5) {
             for (var a=Session.vinkiRenderIt.Length;a<7;a=Session.vinkiRenderIt.Length) {
                 Session.vinkiRenderIt=Session.vinkiRenderIt.Append(0).ToArray();
             }
@@ -135,15 +123,10 @@ public class VinkiModModule : EverestModule {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             for (var a=0;a<textureNamespaces.Length;a++) {
                 if (SaveData.settingsArtChanged[a]) {
-                    //Game[textureNamespaces[a]]=GFX.Game[textureReplaceNamespaces[a]];
                     Logger.Log(LogLevel.Warn,"VinkiMod_graffitiSetup",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
                 } else {
-                    //GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
                 }
             }
-        } else {
-            // If Vinki's skin isn't on, it just goes AARRRGGHHH NO TEXTURES FOR YE
-            //ARRGH_NOTEXTURES_FORYE();
         }
     }
 
@@ -165,14 +148,13 @@ public class VinkiModModule : EverestModule {
                         // collision
                         int[] wh = [8,12];
                         if (self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
-                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator, which texture for GraffitiTemp (-1 is off), x of GraffitiTemp, y of GraffitiTemp]
-                            Session.vinkiRenderIt = [1,Convert.ToInt16(self.X),Convert.ToInt16(self.Y),Session.vinkiRenderIt[3],Session.vinkiRenderIt[4],Session.sessionArtSpots[a][5],Session.sessionArtSpots[a][6]];
+                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator, which texture being replaced? (-1 is off)]
+                            Session.vinkiRenderIt = [1,Convert.ToInt16(self.X),Convert.ToInt16(self.Y),Session.vinkiRenderIt[3],Session.vinkiRenderIt[4]];
                             if (Settings.GraffitiButton.Pressed) {
                                 //Session.vinkiRenderIt[4]=Session.sessionArtSpots[a][4];
                                 doGraffiti(Session.sessionArtSpots[a][4]);
                             }
                             a=Session.sessionArtSpots.Length;
-                        } else {
                         }
                     }
                 }
@@ -184,7 +166,6 @@ public class VinkiModModule : EverestModule {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             // If Vinki's Skin is enabled, it adds these entities to the level first.
             self.Add(new GraffitiIndicator());
-            self.Add(new GraffitiTemp());
             // Also, if you're playing Prologue, the intro car's depth is set to 2. (I think.)
             if (Array.IndexOf(hasArtSpots,self.Session.Area.SID)==0) {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
@@ -194,23 +175,14 @@ public class VinkiModModule : EverestModule {
     
     public static void doGraffiti(int whichTexture) {
         SaveData.settingsArtChanged[whichTexture]=true;
-        //GFX.Game[textureNamespaces[whichTexture]]=GFX.Game[textureReplaceNamespaces[whichTexture]];
         Session.vinkiRenderIt[4]=whichTexture;
-        Logger.Log(LogLevel.Warn,"VinkiMod_doGraffiti",whichTexture.ToString()+" "+textureNamespaces[whichTexture]+" "+textureReplaceNamespaces[whichTexture]);
-    }
-
-    public static void ARRGH_NOTEXTURES_FORYE() {
-        for (var a=0;a<textureNamespaces.Length;a++) {
-            //GFX.Game[textureNamespaces[a]]=GFX.Game[textureUnReplaceNamespaces[a]];
-        }
-        // put whatever texture reloader thingy from doGraffiti here
     }
 
     public static void introCarScrewery(On.Celeste.IntroCar.orig_Added orig, IntroCar self, Monocle.Scene scene) {
         orig(self,scene);
         self.Depth=2;
     }
-
+    //oh my god popax is my savior
     private static void DrawManipulator(ILContext ctx) {
         ILCursor cursor = new ILCursor(ctx);
         cursor.Emit(Mono.Cecil.Cil.OpCodes.Ldarg_0);
@@ -218,8 +190,6 @@ public class VinkiModModule : EverestModule {
         cursor.Emit(Mono.Cecil.Cil.OpCodes.Starg,0);
     }
     private static MTexture TextureReplacer(MTexture tex) {
-        //Your texture replacement code here
-        //tex is the texture which the code intended to draw, return it if you don't want to replace the drawn texture
         var among = -1;
         // Check if the player is ingame
         if (SaveData!=null) {

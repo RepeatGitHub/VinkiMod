@@ -33,7 +33,6 @@ public class VinkiModSettings : EverestModuleSettings {
                 menu.Add(new TextMenu.Button("CONFIRM").Pressed(() => {
                     if (this.AreYouSure) {
                         //Logger.Log(LogLevel.Info, "VinkiMod", VinkiModModule.SaveData.settingsArtChanged.Length.ToString());
-                        VinkiModModule.ARRGH_NOTEXTURES_FORYE();
                         VinkiModModule.SaveData.settingsArtChanged = [];
                         this.AreYouSure=false;
                         //Logger.Log(LogLevel.Info, "VinkiMod", VinkiModModule.SaveData.settingsArtChanged.Length.ToString());
