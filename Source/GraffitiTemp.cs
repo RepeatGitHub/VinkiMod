@@ -38,65 +38,65 @@ public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn ho
         }
     }
 
-    delegate void SpriteBatchPushSprite_orig(
-        SpriteBatch batch,
-        Texture2D texture,
-        float sourceX, float sourceY, float sourceW, float sourceH,
-        float destinationX, float destinationY, float destinationW, float destinationH,
-        Color color,
-        float originX, float originY, float rotationSin, float rotationCos,
-        float depth,
-        byte effects
-    );
-    private static void OnSpriteBatchPushSprite(
-        SpriteBatchPushSprite_orig orig,SpriteBatch batch,Texture2D texturee,
-        float sourceX, float sourceY, float sourceW, float sourceH,
-        float destinationX, float destinationY, float destinationW, float destinationH,
-        Color color,
-        float originX, float originY, float rotationSin, float rotationCos,
-        float depth,
-        byte effects
-    ) {
-        var among = -1;
-        // Check if the player is ingame
-        if (VinkiModModule.SaveData!=null) {
-            // If so, check if the settingsArtChanged.length is equal to or more than textureNamespaces.Length to prevent errors
-            if (VinkiModModule.SaveData.settingsArtChanged.Length>=VinkiModModule.textureNamespaces.Length) {
-                // If so, check each textureNamespace to see if it's changed in the save data.
-                for (var a=0;a<VinkiModModule.textureNamespaces.Length;a++) {
-                    if (VinkiModModule.SaveData.settingsArtChanged[a]) {
-                        // If a texture is changed, is the texture being pushed the same one as this texture?
-                        if (texturee == GFX.Game[VinkiModModule.textureNamespaces[a]].Texture.Texture) {
-                            among=a;
-                        }
-                    }
-                }
-            }
-        }
-        if (among>-1) {
-            // Among was changed? Alright, render it how you would've normally, but with the texture replaced.
-            orig(
-                batch,
-                GFX.Game[VinkiModModule.textureReplaceNamespaces[among]].Texture.Texture,
-                sourceX, sourceY, sourceW, sourceH,
-                destinationX, destinationY, destinationW, destinationH,
-                color,
-                originX, originY, rotationSin, rotationCos,
-                depth,
-                effects
-            );
-        } else {
-            // Among was unchanged? Oh well, off to render it as usual.
-            orig(
-                batch,
-                texturee,
-                sourceX, sourceY, sourceW, sourceH,
-                destinationX, destinationY, destinationW, destinationH,
-                color,
-                originX, originY, rotationSin, rotationCos,
-                depth,
-                effects
-            );
-        }
-    }
+    //delegate void SpriteBatchPushSprite_orig(
+    //    SpriteBatch batch,
+    //    Texture2D texture,
+    //    float sourceX, float sourceY, float sourceW, float sourceH,
+    //    float destinationX, float destinationY, float destinationW, float destinationH,
+    //    Color color,
+    //    float originX, float originY, float rotationSin, float rotationCos,
+    //    float depth,
+    //    byte effects
+    //);
+    //private static void OnSpriteBatchPushSprite(
+    //    SpriteBatchPushSprite_orig orig,SpriteBatch batch,Texture2D texturee,
+    //    float sourceX, float sourceY, float sourceW, float sourceH,
+    //    float destinationX, float destinationY, float destinationW, float destinationH,
+    //    Color color,
+    //    float originX, float originY, float rotationSin, float rotationCos,
+    //    float depth,
+    //    byte effects
+    //) {
+    //    var among = -1;
+    //    // Check if the player is ingame
+    //    if (VinkiModModule.SaveData!=null) {
+    //        // If so, check if the settingsArtChanged.length is equal to or more than textureNamespaces.Length to prevent errors
+    //        if (VinkiModModule.SaveData.settingsArtChanged.Length>=VinkiModModule.textureNamespaces.Length) {
+    //            // If so, check each textureNamespace to see if it's changed in the save data.
+    //            for (var a=0;a<VinkiModModule.textureNamespaces.Length;a++) {
+    //                if (VinkiModModule.SaveData.settingsArtChanged[a]) {
+    //                    // If a texture is changed, is the texture being pushed the same one as this texture?
+    //                    if (texturee == GFX.Game[VinkiModModule.textureNamespaces[a]].Texture.Texture) {
+    //                        among=a;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //    if (among>-1) {
+    //        // Among was changed? Alright, render it how you would've normally, but with the texture replaced.
+    //        orig(
+    //            batch,
+    //            GFX.Game[VinkiModModule.textureReplaceNamespaces[among]].Texture.Texture,
+    //            sourceX, sourceY, sourceW, sourceH,
+    //            destinationX, destinationY, destinationW, destinationH,
+    //            color,
+    //            originX, originY, rotationSin, rotationCos,
+    //            depth,
+    //            effects
+    //        );
+    //    } else {
+    //        // Among was unchanged? Oh well, off to render it as usual.
+    //        orig(
+    //            batch,
+    //            texturee,
+    //            sourceX, sourceY, sourceW, sourceH,
+    //            destinationX, destinationY, destinationW, destinationH,
+    //            color,
+    //            originX, originY, rotationSin, rotationCos,
+    //            depth,
+    //            effects
+    //        );
+    //    }
+    //}
 }

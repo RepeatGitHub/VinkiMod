@@ -35,7 +35,7 @@
     <Anim id="idleC" path="idleC" delay="0.05" goto="idle"/>
 
     <Anim id="lookUp" path="lookUp" delay="0.1" frames="2-7" />
-    <Loop id="walk" path="walk" delay="0.06" />
+    <Loop id="walk" path="runSlow" delay="0.06" />
     <Loop id="push" path="push" delay="0.1" />
     <Anim id="runSlow" path="runSlow" delay="0.07" goto="runFast" />
     <Loop id="runFast" path="runSlow" delay="0.05" />

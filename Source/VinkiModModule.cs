@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Reflection;
 using System.Numerics;
+using System.Collections.Generic;
 using MonoMod.Utils;
 using MonoMod.ModInterop;
 using MonoMod.RuntimeDetour;
 using Celeste.Mod.SkinModHelper;
 using Celeste.Mod.UI;
 using System.Linq;
-using IL.Monocle;
+using Monocle;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod.Cil;
 
 namespace Celeste.Mod.VinkiMod;
 
@@ -49,6 +51,7 @@ public class VinkiModModule : EverestModule {
 //#endif
     }
     private static Hook OnSpriteBatchPushSpriteHook;
+    private static List<ILHook> hooks = new List<ILHook>();
     public override void Load() {
         Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
         Everest.Events.Level.OnEnter += triggerVinkiGUI2;
@@ -56,10 +59,14 @@ public class VinkiModModule : EverestModule {
         Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
         On.Celeste.IntroCar.Added += introCarScrewery;
         
-        OnSpriteBatchPushSpriteHook = new Hook(
-            typeof(SpriteBatch).GetMethod("PushSprite", BindingFlags.NonPublic | BindingFlags.Instance),
-            typeof(GraffitiTemp).GetMethod("OnSpriteBatchPushSprite", BindingFlags.NonPublic | BindingFlags.Static)
-        );
+        //OnSpriteBatchPushSpriteHook = new Hook(
+        //    typeof(SpriteBatch).GetMethod("PushSprite", BindingFlags.NonPublic | BindingFlags.Instance),
+        //    typeof(GraffitiTemp).GetMethod("OnSpriteBatchPushSprite", BindingFlags.NonPublic | BindingFlags.Static)
+        //);
+        foreach(MethodInfo method in typeof(MTexture).GetMethods()) {
+            if(!method.Name.StartsWith("Draw")) continue;
+            hooks.Add(new ILHook(method, DrawManipulator));
+        }
     }
 
     public override void Unload() {
@@ -68,7 +75,9 @@ public class VinkiModModule : EverestModule {
         On.Celeste.Player.Update -= vinkiButtonPress;
         Everest.Events.LevelLoader.OnLoadingThread -= vinkiRenderer;
         On.Celeste.IntroCar.Added -= introCarScrewery;
-        OnSpriteBatchPushSpriteHook?.Dispose();
+        //OnSpriteBatchPushSpriteHook?.Dispose();
+        hooks.ForEach(h => h.Dispose());
+        hooks.Clear();
     }
 
     private static void triggerVinkiGUI1(Level level, LevelData next, Microsoft.Xna.Framework.Vector2 direction) {
@@ -201,5 +210,39 @@ public class VinkiModModule : EverestModule {
     public static void introCarScrewery(On.Celeste.IntroCar.orig_Added orig, IntroCar self, Monocle.Scene scene) {
         orig(self,scene);
         self.Depth=2;
+    }
+
+    private static void DrawManipulator(ILContext ctx) {
+        ILCursor cursor = new ILCursor(ctx);
+        cursor.Emit(Mono.Cecil.Cil.OpCodes.Ldarg_0);
+        cursor.EmitDelegate(TextureReplacer);
+        cursor.Emit(Mono.Cecil.Cil.OpCodes.Starg_S,0);
+    }
+    private static MTexture TextureReplacer(MTexture tex) {
+        //Your texture replacement code here
+        //tex is the texture which the code intended to draw, return it if you don't want to replace the drawn texture
+        var among = -1;
+        // Check if the player is ingame
+        if (SaveData!=null) {
+            // If so, check if the settingsArtChanged.length is equal to or more than textureNamespaces.Length to prevent errors
+            if (SaveData.settingsArtChanged.Length>=textureNamespaces.Length) {
+                // If so, check each textureNamespace to see if it's changed in the save data.
+                for (var a=0;a<textureNamespaces.Length;a++) {
+                    if (SaveData.settingsArtChanged[a]) {
+                        // If a texture is changed, is the texture being pushed the same one as this texture?
+                        if (tex == GFX.Game[textureNamespaces[a]]) {
+                            among=a;
+                        }
+                    }
+                }
+            }
+        }
+        if (among>-1) {
+            // Among was changed? Alright, render it how you would've normally, but with the texture replaced.
+            return GFX.Game[textureReplaceNamespaces[among]];
+        } else {
+            // Among was unchanged? Oh well, off to render it as usual.
+            return tex;
+        }
     }
 }
