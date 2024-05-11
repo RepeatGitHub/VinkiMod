@@ -31,12 +31,17 @@ public class VinkiModModule : EverestModule {
     public static VinkiModSaveData SaveData => (VinkiModSaveData) Instance._SaveData;
 
     //but here's the :hunterglee: (the constants)
-    public static String[] textureNamespaces = ["scenery/car/body","decals/1-forsakencity/big_sign_b","decals/1-forsakencity/camping_medium","decals/1-forsakencity/hanging_sign","decals/1-forsakencity/big_sign_e","decals/1-forsakencity/big_sign_d","decals/1-forsakencity/big_sign","decals/1-forsakencity/big_sign_c","scenery/memorial/memorial"];
-    public static String[] textureReplaceNamespaces = ["scenery/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e","decals/vinki/big_sign_d","decals/vinki/big_sign","decals/vinki/big_sign_c","scenery/vinki/memorial"];
-    public static String[] hasArtSpots = ["Celeste/0-Intro","Celeste/1-ForsakenCity"];
+    public static String[] textureNamespaces = ["scenery/car/body","decals/1-forsakencity/big_sign_b","decals/1-forsakencity/camping_medium","decals/1-forsakencity/hanging_sign","decals/1-forsakencity/big_sign_e","decals/1-forsakencity/big_sign_d","decals/1-forsakencity/big_sign","decals/1-forsakencity/big_sign_c","scenery/memorial/memorial","decals/3-resort/painting_d","decals/4-cliffside/rockaline","decals/5-temple/statue_f","decals/5-temple/statue_c","decals/SJ2021/BeginnerLobby/jizo_game_a"];
+    public static String[] textureReplaceNamespaces = ["decals/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e","decals/vinki/big_sign_d","decals/vinki/big_sign","decals/vinki/big_sign_c","decals/vinki/memorial","decals/vinki/painting_d","decals/vinki/rockavink","decals/vinki/statue_f","decals/vinki/statue_c","decals/vinki/jizo_game_a"];
+    public static String[] hasArtSpots = ["Celeste/0-Intro","Celeste/1-ForsakenCity","Celeste/2-OldSite","Celeste/3-CelestialResort","Celeste/4-GoldenRidge","Celeste/5-MirrorTemple","StrawberryJam2021/0-Lobbies/1-Beginner"];
     public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory
-        [[-180,120,80,50,0]],
-        [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]]
+        [[-180,120,80,50,0]],//intro
+        [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
+        [[790,1725,50,20,2]],//old site
+        [[1590,-75,50,30,9]],//celestial hotel
+        [[5145,-1425,100,25,10]],//golden ridge
+        [[3960,424,80,120,11],[7248,-504,240,50,12]],//mirror temple
+        [[3272,324,64,32,13]]//sj beginner lobby
     ];
 
     public VinkiModModule() {
@@ -119,7 +124,7 @@ public class VinkiModModule : EverestModule {
     private static void graffitiSetup(Session session) {
         // The below two lines make the graffiti indicator randomized between all the existing textures with GFX.Gui["vinki/graffiti-icon_"] and a number.
         var rand = new Random();
-        Session.vinkiRenderIt[3]=rand.Next(0,3);
+        Session.vinkiRenderIt[3]=rand.Next(0,7);
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             for (var a=0;a<textureNamespaces.Length;a++) {
                 if (SaveData.settingsArtChanged[a]) {
