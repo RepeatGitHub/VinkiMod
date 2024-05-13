@@ -31,12 +31,19 @@ public class VinkiModModule : EverestModule {
     public static VinkiModSaveData SaveData => (VinkiModSaveData) Instance._SaveData;
 
     //but here's the :hunterglee: (the constants)
-    public static String[] textureNamespaces = ["scenery/car/body","decals/1-forsakencity/big_sign_b","decals/1-forsakencity/camping_medium","decals/1-forsakencity/hanging_sign","decals/1-forsakencity/big_sign_e","decals/1-forsakencity/big_sign_d","decals/1-forsakencity/big_sign","decals/1-forsakencity/big_sign_c","scenery/memorial/memorial","decals/3-resort/painting_d","decals/4-cliffside/rockaline","decals/5-temple/statue_f","decals/5-temple/statue_c","decals/SJ2021/BeginnerLobby/jizo_game_a"];
-    public static String[] textureReplaceNamespaces = ["decals/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e","decals/vinki/big_sign_d","decals/vinki/big_sign","decals/vinki/big_sign_c","decals/vinki/memorial","decals/vinki/painting_d","decals/vinki/rockavink","decals/vinki/statue_f","decals/vinki/statue_c","decals/vinki/jizo_game_a"];
+    public static String[] textureNamespaces = [
+        "scenery/car/body","decals/1-forsakencity/big_sign_b","decals/1-forsakencity/camping_medium","decals/1-forsakencity/hanging_sign","decals/1-forsakencity/big_sign_e",//0-4
+        "decals/1-forsakencity/big_sign_d","decals/1-forsakencity/big_sign","decals/1-forsakencity/big_sign_c","scenery/memorial/memorial","decals/3-resort/painting_d",//5-9
+        "decals/4-cliffside/rockaline","decals/5-temple/statue_f","decals/5-temple/statue_c","decals/SJ2021/BeginnerLobby/jizo_game_a"//10-14
+    ];
+    public static String[] textureReplaceNamespaces = ["decals/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e",
+        "decals/vinki/big_sign_d","decals/vinki/big_sign","decals/vinki/big_sign_c","decals/vinki/memorial","decals/vinki/painting_d",//5-9
+        "decals/vinki/rockavink","decals/vinki/statue_f","decals/vinki/statue_c","decals/vinki/jizo_game_a"//10-14
+    ];
     public static String[] hasArtSpots = ["Celeste/0-Intro","Celeste/1-ForsakenCity","Celeste/2-OldSite","Celeste/3-CelestialResort","Celeste/4-GoldenRidge","Celeste/5-MirrorTemple","StrawberryJam2021/0-Lobbies/1-Beginner"];
     public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory
         [[-180,120,80,50,0]],//intro
-        [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
+        [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[3040,-1880,40,24,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
         [[790,1725,50,20,2]],//old site
         [[1590,-75,50,30,9]],//celestial hotel
         [[5145,-1425,100,25,10]],//golden ridge
@@ -44,20 +51,28 @@ public class VinkiModModule : EverestModule {
         [[3272,324,64,32,13]]//sj beginner lobby
     ];
 
+    public static String[] hasCustomDecals = ["Celeste/0-Intro"];
+
+    public static int[][][] customDecals = [//x,y,w,h,decals/vinki/graffiti/(this)(_x or _y depending on off/on status).png
+        [[0,100,1,1,0]]//intro
+    ];
+
     public VinkiModModule() {
         Instance = this;
     }
     private static List<ILHook> hooks = new List<ILHook>();
     public override void Load() {
-        Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
-        Everest.Events.Level.OnEnter += triggerVinkiGUI2;
-        On.Celeste.Player.Update += vinkiButtonPress;
-        Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
-        On.Celeste.IntroCar.Added += introCarScrewery;
-        
-        foreach(MethodInfo method in typeof(MTexture).GetMethods()) {
-            if(!method.Name.StartsWith("Draw")) continue;
-            hooks.Add(new ILHook(method, DrawManipulator));
+        if (!Settings.MasterSwitch) {
+            Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
+            Everest.Events.Level.OnEnter += triggerVinkiGUI2;
+            On.Celeste.Player.Update += vinkiButtonPress;
+            Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
+            On.Celeste.IntroCar.Added += introCarScrewery;
+
+            foreach(MethodInfo method in typeof(MTexture).GetMethods()) {
+                if(!method.Name.StartsWith("Draw")) continue;
+                hooks.Add(new ILHook(method, DrawManipulator));
+            }
         }
     }
 
@@ -125,14 +140,14 @@ public class VinkiModModule : EverestModule {
         // The below two lines make the graffiti indicator randomized between all the existing textures with GFX.Gui["vinki/graffiti-icon_"] and a number.
         var rand = new Random();
         Session.vinkiRenderIt[3]=rand.Next(0,7);
-        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
-            for (var a=0;a<textureNamespaces.Length;a++) {
-                if (SaveData.settingsArtChanged[a]) {
-                    Logger.Log(LogLevel.Warn,"VinkiMod_graffitiSetup",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
-                } else {
-                }
-            }
-        }
+        //if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+        //    for (var a=0;a<textureNamespaces.Length;a++) {
+        //        if (SaveData.settingsArtChanged[a]) {
+        //            Logger.Log(LogLevel.Warn,"VinkiMod_graffitiSetup",a.ToString()+" "+textureNamespaces[a]+" "+textureReplaceNamespaces[a]);
+        //        } else {
+        //        }
+        //    }
+        //}
     }
 
     public static void vinkiButtonPress(On.Celeste.Player.orig_Update orig, Player self) {
@@ -166,7 +181,7 @@ public class VinkiModModule : EverestModule {
             }
         }
     }
-
+    // but here's the DECAL CODE
     private static void vinkiRenderer(Level self) {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             // If Vinki's Skin is enabled, it adds these entities to the level first.
@@ -174,6 +189,13 @@ public class VinkiModModule : EverestModule {
             // Also, if you're playing Prologue, the intro car's depth is set to 2. (I think.)
             if (Array.IndexOf(hasArtSpots,self.Session.Area.SID)==0) {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
+            }
+        }
+        if (Array.IndexOf(hasCustomDecals,self.Session.Area.SID)!=-1) {
+            var myLvl=Array.IndexOf(hasCustomDecals,self.Session.Area.SID);
+            for (var a=0;a<customDecals[myLvl].Length;a++) {
+                Logger.Log(LogLevel.Warn,"VinkiMod_vinkiRenderer",a.ToString());
+                self.Add(new Decal("vinki/graffiti/"+customDecals[myLvl][a][4]+"_x",new Microsoft.Xna.Framework.Vector2 (customDecals[myLvl][a][0],customDecals[myLvl][a][1]),new Microsoft.Xna.Framework.Vector2 (customDecals[myLvl][a][2],customDecals[myLvl][a][3]),1));
             }
         }
     }
@@ -197,7 +219,7 @@ public class VinkiModModule : EverestModule {
     private static MTexture TextureReplacer(MTexture tex) {
         var among = -1;
         // Check if the player is ingame
-        if (SaveData!=null) {
+        if (SaveData!=null&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||Settings.HideIfNotVinki==0)) {
             // If so, check if the settingsArtChanged.length is equal to or more than textureNamespaces.Length to prevent errors
             if (SaveData.settingsArtChanged.Length>=textureNamespaces.Length) {
                 // If so, check each textureNamespace to see if it's changed in the save data.

@@ -1,1 +1,8 @@
 SkinModHelper_Player__Vinki_Scug= Vinki
+VinkiMod_GraffitiButton= Use Graffiti
+VinkiMod_MasterSwitch= Disable Mod
+VinkiMod_HideIfNotVinki= Graffiti Display Settings
+modoptions_vinkimod_HideIfNotVinki_All= All Characters
+modoptions_vinkimod_HideIfNotVinki_VinkiOnly= Vinki Only
+VinkiMod_ResetCurrentSaveButton= Reset Current Save Menu
+VinkiMod_AreYouSure= Are you sure?
