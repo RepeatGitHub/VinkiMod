@@ -1,3 +1,6 @@
+modname_VinkiMod= Vinki's Ascent
+VinkiMod_Funny= Vinki's Ascent - Maps
+VinkiMod_Funny_PebblesTrip= Visiting Your Rival
 SkinModHelper_Player__Vinki_Scug= Vinki
 VinkiMod_GraffitiButton= Use Graffiti
 VinkiMod_MasterSwitch= Disable Mod

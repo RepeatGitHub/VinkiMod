@@ -1,8 +1,16 @@
-- Name: VinkiMod
+- DLL: bin/Mods.dll
+  Name: VinkiMod
   Version: 1.0.0
-  DLL: bin/Mods.dll
   Dependencies:
     - Name: Everest
       Version: 1.4465.0
+    - Name: ExtendedVariantMode
+      Version: 0.36.0
+    - Name: FrostHelper
+      Version: 1.50.2
+    - Name: PandorasBox
+      Version: 1.0.47
     - Name: SkinModHelperPlus
       Version: 0.9.0
+    - Name: VivHelper
+      Version: 1.14.6

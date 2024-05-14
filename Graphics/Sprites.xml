@@ -34,7 +34,8 @@
     <Anim id="idleB" path="idleB" delay="0.16" goto="idle"/>
     <Anim id="idleC" path="idleC" delay="0.05" goto="idle"/>
 
-    <Anim id="lookUp" path="lookUp" delay="0.1" frames="2-7" />
+    <Anim id="lookUp" path="lookUp" delay="0.1" frames="0-3" goto="lookUpIdle"/>
+    <Anim id="lookUpIdle" path="lookUpIdle" delay="0.1" frames="0-8" goto="lookUpIdle"/>
     <Loop id="walk" path="runSlow" delay="0.06" />
     <Loop id="push" path="push" delay="0.1" />
     <Anim id="runSlow" path="runSlow" delay="0.07" goto="runFast" />
@@ -116,6 +117,7 @@
       <Frames path="idleC" hair="x|x|x|x|x|x|x|x|x|x|x|x"/>
       
       <Frames path="lookUp" hair="x|x|x|x|x|x|x|x|x"/>
+      <Frames path="lookUpIdle" hair="x|x|x|x|x|x|x|x|x"/>
       <Frames path="edge" hair="x|x|x|x|x|x|x|x|x|x|x|x|x|x"/>
       <Frames path="edge_back" hair="x|x|x|x|x|x|x|x|x|x|x|x|x|x"/>
       <Frames path="walk" hair="1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3|1,3"/>

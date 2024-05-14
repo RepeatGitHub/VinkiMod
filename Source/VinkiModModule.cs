@@ -192,8 +192,10 @@ public class VinkiModModule : EverestModule {
             }
         }
         if (Array.IndexOf(hasCustomDecals,self.Session.Area.SID)!=-1) {
+            // If the current level is within hasCustomDecals, it sets variable myLvl for convenience.
             var myLvl=Array.IndexOf(hasCustomDecals,self.Session.Area.SID);
             for (var a=0;a<customDecals[myLvl].Length;a++) {
+                // Then, for each custom decal in the array, it places that decal in the level.
                 Logger.Log(LogLevel.Warn,"VinkiMod_vinkiRenderer",a.ToString());
                 self.Add(new Decal("vinki/graffiti/"+customDecals[myLvl][a][4]+"_x",new Microsoft.Xna.Framework.Vector2 (customDecals[myLvl][a][0],customDecals[myLvl][a][1]),new Microsoft.Xna.Framework.Vector2 (customDecals[myLvl][a][2],customDecals[myLvl][a][3]),1));
             }
