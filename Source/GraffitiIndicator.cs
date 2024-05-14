@@ -16,20 +16,21 @@ namespace Celeste.Mod.VinkiMod;
 
 public class GraffitiIndicator : Entity { // this should not show up in ahorn/lonn hopefully
    public GraffitiIndicator() {
-        Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
+        //Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
+        Depth = Depths.FakeWalls - 1;
         AddTag(Tags.Persistent);
     }
 
-    public override void Update() {
-        base.Update();
-
-        // thank u extended variants
-        if (Collider != null && CollideAll<Solid>().Any(solid => solid.Depth < (Depths.FGTerrain + Depths.FGDecals) / 2)) {
-            Depth = Depths.FakeWalls - 1;
-        } else {
-            Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
-        }
-    }
+    //public override void Update() {
+    //    base.Update();
+    //
+    //    // thank u extended variants
+    //    if (Collider != null && CollideAll<Solid>().Any(solid => solid.Depth < (Depths.FGTerrain + Depths.FGDecals) / 2)) {
+    //        Depth = Depths.FakeWalls - 1;
+    //    } else {
+    //        Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
+    //    }
+    //}
 
     public override void Render() {
         base.Render();
