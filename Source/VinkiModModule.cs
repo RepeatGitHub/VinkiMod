@@ -48,7 +48,7 @@ public class VinkiModModule : EverestModule {
         [[-180,120,80,50,0]],//intro
         [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[3040,-1880,40,24,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
         [[790,1725,50,20,2],[1724,508,144,80,14],[115,-515,35,50,15],[1400,268,22,22,16],[835,-1645,32,40,17]],//old site
-        [[1590,-75,50,30,9],[5632,-69,56,32,18],[3196,-562,1,1,19]],//celestial resort, not hotel
+        [[1590,-75,50,30,9],[5632,-69,56,32,18],[3193,-555,16,8,19]],//celestial resort, not hotel
         [[5145,-1425,100,25,10]],//golden ridge
         [[3960,424,80,120,11],[7248,-504,240,50,12]],//mirror temple
         [[3272,324,64,32,13]]//sj beginner lobby
@@ -56,11 +56,12 @@ public class VinkiModModule : EverestModule {
 
     public static String[] decalNamespaces = ["0_heart","0_dream","0_dream2","0_bad","1_pico8","1_sicktricks"];
 
-    public static String[] hasCustomDecals = ["Celeste/2-OldSite","Celeste/3-CelestialResort"];
+    public static String[] hasCustomDecals = ["Celeste/2-OldSite","Celeste/3-CelestialResort","StrawberryJam2021/5-Grandmaster/maya"];
 
     public static int[][][] customDecals = [//x,y,w,h,bg/fg/sfg=0/1/2,decals/vinki/graffiti/(this index in decalNamespaces)(_x or _y depending on off/on status).png
         [[130,-510,1,1,0,0],[1760,524,1,1,1,1],[1412,279,1,1,1,2],[852,-1644,1,1,0,3],[111,1137,1,1,0,0]],//old site
-        [[5660,-68,1,1,0,4],[3164,-556,1,1,0,5]]//celestial resort
+        [[5660,-68,1,1,0,4],[3164,-556,1,1,0,5]],//celestial resort
+        [[-6100,1397,1,1,0,4]]//pumber
     ];
 
     public VinkiModModule() {

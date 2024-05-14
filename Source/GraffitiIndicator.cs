@@ -17,7 +17,7 @@ namespace Celeste.Mod.VinkiMod;
 public class GraffitiIndicator : Entity { // this should not show up in ahorn/lonn hopefully
    public GraffitiIndicator() {
         //Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
-        Depth = Depths.FakeWalls - 1;
+        Depth = Depths.CrystalSpinners - 1;
         AddTag(Tags.Persistent);
     }
 
