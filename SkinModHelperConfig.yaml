@@ -9,7 +9,15 @@
     # ---Da Vinki---
   - SkinName: "Vinki_Scug"
     Player_List: true
+    Silhouette_List: false
     Character_ID: "vinki_scug"
+    OtherSprite_Path: "repeat/slugcats/normal/vinki"
+
+    # ---Da Vinki Silhouette---
+  - SkinName: "Vinki_Scug_Silhouette"
+    Player_List: false
+    Silhouette_List: true
+    Character_ID: "vinki_scug_silhouette"
     OtherSprite_Path: "repeat/slugcats/normal/vinki"
 
 # Other Skins
