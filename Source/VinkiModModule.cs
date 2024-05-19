@@ -32,7 +32,7 @@ public class VinkiModModule : EverestModule {
     public override Type SaveDataType => typeof(VinkiModSaveData);
     public static VinkiModSaveData SaveData => (VinkiModSaveData) Instance._SaveData;
 
-    public static String[] graffitiUsers = ["Vinki_Scug"];
+    public static String[] graffitiUsers = ["Vinki_Scug","Vinki_Scug_Silhouette"];
 
     //but here's the :hunterglee: (the constants)
     public static String[] textureNamespaces = [
