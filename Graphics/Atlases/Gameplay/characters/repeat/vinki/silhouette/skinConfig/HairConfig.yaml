@@ -1,0 +1,31 @@
+HairColors:
+- Dashes: 2
+  Color: "6E5CFF"
+  SegmentsColors:
+  - Segment: 1
+    Color: "2BC1CD"
+  - Segment: 3
+    Color: "2BC1CD"
+
+- Dashes: 1
+  Color: "6E5CFF"
+  SegmentsColors:
+  - Segment: 1
+    Color: "4d38fc"
+  - Segment: 3
+    Color: "4d38fc"
+
+- Dashes: 0
+  Color: "4E4BFC"
+  SegmentsColors:
+  - Segment: 0
+    Color: "FFA240"
+  - Segment: 1
+    Color: "C86803"
+  - Segment: 2
+    Color: "FFA240"
+  - Segment: 3
+    Color: "C86803"
+
+HairFlash: false
+OutlineColor: "6A00DC"

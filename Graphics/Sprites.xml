@@ -160,5 +160,8 @@
 
     </Metadata>
   </vinki_scug>
+  <vinki_scug_silhouette path="characters/repeat/vinki/silhouette/" copy="vinki_scug">
+    <Origin x="16" y="32" />
+  </vinki_scug_silhouette>
 
 </Sprites>
