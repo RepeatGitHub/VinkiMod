@@ -14,10 +14,12 @@ using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
+using VinkiMod.Module;
 
 namespace Celeste.Mod.VinkiMod;
 
 public class VinkiModModule : EverestModule {
+        //ExtendedVariants.Module.ExtendedVariantsModule.Variant=ExtendedVariants.Variants.AlwaysPressGraffitiButton;
     
     public static VinkiModModule Instance;// { get; private set; }
 
@@ -29,6 +31,8 @@ public class VinkiModModule : EverestModule {
 
     public override Type SaveDataType => typeof(VinkiModSaveData);
     public static VinkiModSaveData SaveData => (VinkiModSaveData) Instance._SaveData;
+
+    public static String[] graffitiUsers = ["Vinki_Scug"];
 
     //but here's the :hunterglee: (the constants)
     public static String[] textureNamespaces = [
@@ -77,6 +81,7 @@ public class VinkiModModule : EverestModule {
     }
     private static List<ILHook> hooks = new List<ILHook>();
     public override void Load() {
+        typeof(VinkiModInterop).ModInterop();
         if (!Settings.MasterSwitch) {
             Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
             Everest.Events.Level.OnEnter += triggerVinkiGUI2;
@@ -172,7 +177,7 @@ public class VinkiModModule : EverestModule {
         orig(self);
         // Then, the graffiti indicator is turned off.
         Session.vinkiRenderIt[0]=0;
-        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+        if (Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1) {
             if (!Session.sessionStuffLoaded) {
                 if (Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())!=-1) {
                     Session.sessionArtSpots=artSpots[Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())];
@@ -200,7 +205,7 @@ public class VinkiModModule : EverestModule {
     }
     // but here's the graffiti indicator
     private static void vinkiRenderer(Level self) {
-        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+        if (Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1) {
             // If Vinki's Skin is enabled, it adds these entities to the level first.
             self.Add(new GraffitiIndicator());
             // Also, if you're playing Prologue, the intro car's depth is set to 2. (I think.)
@@ -249,7 +254,7 @@ public class VinkiModModule : EverestModule {
     private static MTexture TextureReplacer(MTexture tex) {
         var among = -1;
         // Check if the player is ingame
-        if (SaveData!=null&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||Settings.HideIfNotVinki==0)) {
+        if (SaveData!=null&&(Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1||Settings.HideIfNotVinki==0)) {
             // If so, check if the settingsArtChanged.length is equal to or more than textureNamespaces.Length to prevent errors
             if (SaveData.settingsArtChanged.Length>=textureNamespaces.Length) {
                 // If so, check each textureNamespace to see if it's changed in the save data.

@@ -14,6 +14,7 @@
     <ItemGroup>
         <Reference Include="./lib/SkinModHelperPlus.dll" Private="false" />
         <Reference Include="./lib/Procedurline.dll" Private="false" />
+        <Reference Include="./lib/ExtendedVariantMode.dll" Private="false" />
         <Reference Include="$(CelestePrefix)\YamlDotNet.dll">
             <Private>false</Private>
         </Reference>

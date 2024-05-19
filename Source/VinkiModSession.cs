@@ -6,4 +6,5 @@ public class VinkiModSession : EverestModuleSession {
     public int[][] sessionArtSpots = [];
     public bool sessionStuffLoaded = false;
     public int[] vinkiRenderIt = [0,0,0,0,-1];
+    public bool AlwaysGrafButton = false;
 }
