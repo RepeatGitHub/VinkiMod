@@ -189,9 +189,14 @@ public class VinkiModModule : EverestModule {
                     if (!SaveData.settingsArtChanged[Session.sessionArtSpots[a][4]]) {
                         // collision
                         int[] wh = [8,12];
+                        int[] pxy = [0,0];
+                        if (!(self?.Dead??true)) {//thank u snippy for this
+                            pxy=[Convert.ToInt16(self.X),Convert.ToInt16(self.Y)];
+                        }
+
                         if (self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
                             // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator, which texture being replaced? (-1 is off)]
-                            Session.vinkiRenderIt = [1,Convert.ToInt16(self.X),Convert.ToInt16(self.Y),Session.vinkiRenderIt[3],Session.vinkiRenderIt[4]];
+                            Session.vinkiRenderIt = [1,pxy[0],pxy[1],Session.vinkiRenderIt[3],Session.vinkiRenderIt[4]];
                             if (Settings.GraffitiButton.Pressed) {
                                 //Session.vinkiRenderIt[4]=Session.sessionArtSpots[a][4];
                                 doGraffiti(Session.sessionArtSpots[a][4]);
@@ -213,7 +218,6 @@ public class VinkiModModule : EverestModule {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
             }
         }
-        Logger.Log(LogLevel.Warn,"vinkimod_vinkirednerer",SkinModHelperModule.GetPlayerSkinName(-1));
     }
     // but here's the DECAL CODE
     private static void vinkiDecalier(Level self, Player.IntroTypes playerIntro, bool isFromLoader) {

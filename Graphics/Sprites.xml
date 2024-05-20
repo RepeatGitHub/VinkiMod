@@ -68,9 +68,9 @@
     <Anim id="flip" path="flip" delay="0.08" frames="0-7" goto="runFast"/>
     <Loop id="skid" path="flip" delay="0.04" frames="8"/>
     <Loop id="dangling" path="dangling" delay="0.33" frames="0-3" />
-    <Anim id="deadside" path="death_h" delay="0.02" frames="0-12" />
-    <Anim id="deadup"   path="death_h" delay="0.02" frames="0-12" />
-    <Anim id="deaddown" path="death_h" delay="0.02" frames="0-12" />
+    <Loop id="deadside" path="deadside" delay="0.1"/>
+    <Loop id="deadup"   path="deadside" delay="0.1"/>
+    <Loop id="deaddown" path="deadside" delay="0.1"/>
     
     <Loop id="swimIdle" path="swim" frames="0-5" delay="0.08" />
     <Loop id="swimUp" path="swim" frames="6-11" delay="0.08" />
