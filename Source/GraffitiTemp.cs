@@ -33,9 +33,9 @@ public class GraffitiTemp : Entity { // this should not show up in ahorn/lonn ho
     public override void Render() {
         base.Render();
 
-        if (VinkiModModule.Session.vinkiRenderIt[4]!=-1) {
-            GFX.Game[VinkiModModule.textureReplaceNamespaces[VinkiModModule.Session.vinkiRenderIt[4]]].Draw(new Microsoft.Xna.Framework.Vector2 (VinkiModModule.Session.vinkiRenderIt[5],VinkiModModule.Session.vinkiRenderIt[6]));
-        }
+        //if (VinkiModModule.Session.vinkiRenderIt[4]!=-1) {
+        //    GFX.Game[VinkiModModule.textureReplaceNamespaces[VinkiModModule.Session.vinkiRenderIt[4]]].Draw(new Microsoft.Xna.Framework.Vector2 (VinkiModModule.Session.vinkiRenderIt[5],VinkiModModule.Session.vinkiRenderIt[6]));
+        //}
     }
 
     //delegate void SpriteBatchPushSprite_orig(

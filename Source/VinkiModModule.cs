@@ -124,8 +124,6 @@ public class VinkiModModule : EverestModule {
                 Session.vinkiRenderIt=Session.vinkiRenderIt.Append(0).ToArray();
             }
         }
-        // This line sets the GraffitiTemp rendering to off.
-        Session.vinkiRenderIt[4]=-1;
         // This here is setting up the SaveData.settingsArtChanged to match the same length as textureNamespaces.
         if (SaveData.settingsArtChanged.Length<textureNamespaces.Length) {
             for (var a=SaveData.settingsArtChanged.Length;a<textureNamespaces.Length;a=SaveData.settingsArtChanged.Length) {
@@ -194,13 +192,13 @@ public class VinkiModModule : EverestModule {
                             pxy=[Convert.ToInt16(self.X),Convert.ToInt16(self.Y)];
                         }
 
-                        if (self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
-                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator, which texture being replaced? (-1 is off)]
-                            Session.vinkiRenderIt = [1,pxy[0],pxy[1],Session.vinkiRenderIt[3],Session.vinkiRenderIt[4]];
+                        if (!(self?.Dead??true)&&self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
+                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator]
+                            Session.vinkiRenderIt = [1,pxy[0]+0,pxy[1]+0,Session.vinkiRenderIt[3]+0];
                             if (Settings.GraffitiButton.Pressed) {
-                                //Session.vinkiRenderIt[4]=Session.sessionArtSpots[a][4];
                                 doGraffiti(Session.sessionArtSpots[a][4]);
                             }
+                            Logger.Log(LogLevel.Warn,"vinkibutonpres",Session.vinkiRenderIt[1].ToString());
                             a=Session.sessionArtSpots.Length;
                         }
                     }
@@ -242,7 +240,6 @@ public class VinkiModModule : EverestModule {
     
     public static void doGraffiti(int whichTexture) {
         SaveData.settingsArtChanged[whichTexture]=true;
-        Session.vinkiRenderIt[4]=whichTexture;
     }
 
     public static void introCarScrewery(On.Celeste.IntroCar.orig_Added orig, IntroCar self, Monocle.Scene scene) {
