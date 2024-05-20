@@ -133,7 +133,7 @@ public class VinkiModModule : EverestModule {
             }
         }
         // This section just replaces all the textures for Vinki that aren't graffiti-related.
-        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette") {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/vinki/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/vinki/idle"];
             GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
@@ -177,7 +177,7 @@ public class VinkiModModule : EverestModule {
         orig(self);
         // Then, the graffiti indicator is turned off.
         Session.vinkiRenderIt[0]=0;
-        if (Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1) {
+        if (isGraffitiUser()) {
             if (!Session.sessionStuffLoaded) {
                 if (Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())!=-1) {
                     Session.sessionArtSpots=artSpots[Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())];
@@ -205,7 +205,7 @@ public class VinkiModModule : EverestModule {
     }
     // but here's the graffiti indicator
     private static void vinkiRenderer(Level self) {
-        if (Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1) {
+        if (isGraffitiUser()) {
             // If Vinki's Skin is enabled, it adds these entities to the level first.
             self.Add(new GraffitiIndicator());
             // Also, if you're playing Prologue, the intro car's depth is set to 2. (I think.)
@@ -213,9 +213,10 @@ public class VinkiModModule : EverestModule {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
             }
         }
+        Logger.Log(LogLevel.Warn,"vinkimod_vinkirednerer",SkinModHelperModule.GetPlayerSkinName(-1));
     }
     // but here's the DECAL CODE
-    private void vinkiDecalier(Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
+    private static void vinkiDecalier(Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
         if (Array.IndexOf(hasCustomDecals,self.Session.Area.SID+"_"+self.Session.Area.Mode.ToString())!=-1) {
             // If the current level is within hasCustomDecals, it sets variable myLvl for convenience.
             var myLvl=Array.IndexOf(hasCustomDecals,self.Session.Area.SID+"_"+self.Session.Area.Mode.ToString());
@@ -275,5 +276,9 @@ public class VinkiModModule : EverestModule {
             // Among was unchanged? Oh well, off to render it as usual.
             return tex;
         }
+    }
+
+    public static bool isGraffitiUser() {
+        return Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1;
     }
 }
