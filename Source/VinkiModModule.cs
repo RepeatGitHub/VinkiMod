@@ -169,42 +169,11 @@ public class VinkiModModule : EverestModule {
         //    }
         //}
     }
-
     public static void vinkiButtonPress(On.Celeste.Player.orig_Update orig, Player self) {
         // Before anything, the original Update function runs.
         orig(self);
         // Then, the graffiti indicator is turned off.
-        Session.vinkiRenderIt[0]=0;
-        if (isGraffitiUser()) {
-            if (!Session.sessionStuffLoaded) {
-                if (Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())!=-1) {
-                    Session.sessionArtSpots=artSpots[Array.IndexOf(hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())];
-                }
-                Session.sessionStuffLoaded=true;
-            }
-            if (Session.sessionArtSpots.Length>0&&SaveData.settingsArtChanged.Length>=textureNamespaces.Length) {
-                for (var a=0;a<Session.sessionArtSpots.Length;a++) {
-                    if (!SaveData.settingsArtChanged[Session.sessionArtSpots[a][4]]) {
-                        // collision
-                        int[] wh = [8,12];
-                        int[] pxy = [0,0];
-                        if (!(self?.Dead??true)) {//thank u snippy for this
-                            pxy=[Convert.ToInt16(self.X),Convert.ToInt16(self.Y)];
-                        }
-
-                        if (!(self?.Dead??true)&&self.X+wh[0]>Session.sessionArtSpots[a][0]&&self.X<Session.sessionArtSpots[a][0]+Session.sessionArtSpots[a][2]&&self.Y+wh[1]>Session.sessionArtSpots[a][1]&&self.Y<Session.sessionArtSpots[a][1]+Session.sessionArtSpots[a][3]) {
-                            // [0/1 toggle for GraffitiIndicator, player x, player y, type of indicator]
-                            Session.vinkiRenderIt = [1,pxy[0]+0,pxy[1]+0,Session.vinkiRenderIt[3]+0];
-                            if (Settings.GraffitiButton.Pressed) {
-                                doGraffiti(Session.sessionArtSpots[a][4]);
-                            }
-                            Logger.Log(LogLevel.Warn,"vinkibutonpres",Session.vinkiRenderIt[1].ToString());
-                            a=Session.sessionArtSpots.Length;
-                        }
-                    }
-                }
-            }
-        }
+        
     }
     // but here's the graffiti indicator
     private static void vinkiRenderer(Level self) {
