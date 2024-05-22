@@ -86,7 +86,6 @@ public class VinkiModModule : EverestModule {
             Everest.Events.Level.OnTransitionTo += triggerVinkiGUI1;
             Everest.Events.Level.OnEnter += triggerVinkiGUI2;
             On.Celeste.Player.Update += vinkiButtonPress;
-            Everest.Events.LevelLoader.OnLoadingThread += vinkiRenderer;
             Everest.Events.Level.OnLoadLevel += vinkiDecalier;//brokemia saves the day by telling me to use onloadlevel instead of onloadingthread
             On.Celeste.IntroCar.Added += introCarScrewery;
 
@@ -101,7 +100,6 @@ public class VinkiModModule : EverestModule {
         Everest.Events.Level.OnTransitionTo -= triggerVinkiGUI1;
         Everest.Events.Level.OnEnter -= triggerVinkiGUI2;
         On.Celeste.Player.Update -= vinkiButtonPress;
-        Everest.Events.LevelLoader.OnLoadingThread -= vinkiRenderer;
         Everest.Events.Level.OnLoadLevel -= vinkiDecalier;
         On.Celeste.IntroCar.Added -= introCarScrewery;
         
@@ -175,8 +173,8 @@ public class VinkiModModule : EverestModule {
         // Then, the graffiti indicator is turned off.
         
     }
-    // but here's the graffiti indicator
-    private static void vinkiRenderer(Level self) {
+    // but here's the DECAL CODE
+    private static void vinkiDecalier(Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
         if (isGraffitiUser()) {
             // If Vinki's Skin is enabled, it adds these entities to the level first.
             self.Add(new GraffitiIndicator());
@@ -185,9 +183,6 @@ public class VinkiModModule : EverestModule {
                 self.Session.LevelData.Entities[2].Values["depth"]=2;
             }
         }
-    }
-    // but here's the DECAL CODE
-    private static void vinkiDecalier(Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
         if (Array.IndexOf(hasCustomDecals,self.Session.Area.SID+"_"+self.Session.Area.Mode.ToString())!=-1) {
             // If the current level is within hasCustomDecals, it sets variable myLvl for convenience.
             var myLvl=Array.IndexOf(hasCustomDecals,self.Session.Area.SID+"_"+self.Session.Area.Mode.ToString());
