@@ -78,7 +78,7 @@ public class VinkiModModule : EverestModule {
 
     // For each [a,b], it replaces texture of index b in texture(Replace)Namespaces when the texture of index a is changed.
     public static int[][] alsoReplace = [
-        []
+        
     ];
 
     public VinkiModModule() {
