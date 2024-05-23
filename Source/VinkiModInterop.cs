@@ -12,7 +12,7 @@ namespace VinkiMod.Module {
         public static void AddGraffitiCharacter(string characterID) {
             VinkiModModule.graffitiUsers=VinkiModModule.graffitiUsers.Append(characterID).ToArray();
         }
-    // CUSTOM GRAFFITI
+    // CUSTOM ART SPOTS
         // Adds a textureNamespace/textureReplaceNamespace, and returns the index. If it returns -1, then something in the code went wrong.
         public static int AddTextureNamespaces(string textureNamespace, string textureReplaceNamespace) {
             VinkiModModule.textureNamespaces=VinkiModModule.textureNamespaces.Append(textureNamespace).ToArray();
