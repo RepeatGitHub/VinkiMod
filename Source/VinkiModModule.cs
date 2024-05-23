@@ -76,6 +76,11 @@ public class VinkiModModule : EverestModule {
         [[10752,-392,1,1,0,8]]//celestial resort b-side
     ];
 
+    // For each [a,b], it replaces texture of index b in texture(Replace)Namespaces when the texture of index a is changed.
+    public static int[][] alsoReplace = [
+        []
+    ];
+
     public VinkiModModule() {
         Instance = this;
     }
@@ -229,6 +234,15 @@ public class VinkiModModule : EverestModule {
                         // If a texture is changed, is the texture being pushed the same one as this texture?
                         if (tex == GFX.Game[textureNamespaces[a]]) {
                             among=a;
+                        }
+                    }
+                }
+                // Also, check each alsoReplace to see if the second entry is changed in the save data.
+                for (var a=0;a<alsoReplace.Length;a++) {
+                    if (SaveData.settingsArtChanged[alsoReplace[a][0]]) {
+                        // If a texture is changed, is the texture being pushed the same one as the first entry?
+                        if (tex == GFX.Game[textureNamespaces[alsoReplace[a][1]]]) {
+                            among=alsoReplace[a][1];
                         }
                     }
                 }
