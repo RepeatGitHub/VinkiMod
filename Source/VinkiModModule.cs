@@ -101,6 +101,7 @@ public class VinkiModModule : EverestModule {
                 hooks.Add(new ILHook(method, DrawManipulator));
             }
             On.Celeste.Pico8.Emulator.Render += Pico8Code;
+            On.Celeste.Pico8.Emulator.ctor += Pico8Code2;
         }
     }
 
@@ -251,8 +252,6 @@ public class VinkiModModule : EverestModule {
                     }
                 }
             }
-        } else if (tex==GFX.Game["pico8/atlas"]&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette")) {
-            return GFX.Game["pico8/vinki/atlas"];
         }
         if (among>-1) {
             // Among was changed? Alright, render it how you would've normally, but with the texture replaced.
@@ -270,7 +269,23 @@ public class VinkiModModule : EverestModule {
     private static void Pico8Code(On.Celeste.Pico8.Emulator.orig_Render orig, Emulator self) {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             self.colors[8]=Calc.HexToColor("ffa300");
+            GFX.Game["pico8/atlas"]=GFX.Game["pico8/vinki/atlas"];
+        } else {
+            GFX.Game["pico8/atlas"]=GFX.Game["pico8/madeline/atlas"];
         }
         orig(self);
+    }
+
+    private static void Pico8Code2(On.Celeste.Pico8.Emulator.orig_ctor orig, Emulator self, Scene returnTo, int levelX, int levelY) {
+        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+            GFX.Game["pico8/atlas"]=GFX.Game["pico8/vinki/atlas"];
+        } else {
+            GFX.Game["pico8/atlas"]=GFX.Game["pico8/madeline/atlas"];
+        }Logger.Log(LogLevel.Warn,"vink8",SkinModHelperModule.GetPlayerSkinName(-1));
+        orig(self,returnTo,levelX,levelY);
+        //if (GFX.Game["pico8/atlas"]&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette")) {
+        //    Logger.Log(LogLevel.Warn,"vinkipico1","YIPPEE");
+        //    return ;
+        //}
     }
 }
