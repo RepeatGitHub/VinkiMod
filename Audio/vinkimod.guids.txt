@@ -817,6 +817,7 @@
 {21a98c43-8e79-4b8a-8963-a269735f3989} event:/ui/world_map/whoosh/900ms_forward
 {f894c23b-3486-40d1-9e8b-fc3dd17c3199} event:/vinkimod/music/cassette/01_forsaken_city
 {fa0d0415-8894-4308-a435-f6732e3973ec} event:/vinkimod/music/lv0/intro
+{aed5f34e-8f59-4ed3-b673-10c3c3027cd8} event:/vinkimod/music/lv0/bridge
 {e70f565f-f755-4155-8860-11cffcbf33ca} event:/vinkimod/music/lv1/main
 {ea595d6d-cb07-4897-81cb-4830bf5823cb} event:/!!!_README_FIRST
 {c7aad72f-9796-42d3-980b-d093fd765716} bus:/
