@@ -113,6 +113,7 @@ public class VinkiModModule : EverestModule {
         
         hooks.ForEach(h => h.Dispose());
         hooks.Clear();
+        On.Celeste.Pico8.Emulator.Render -= Pico8Code;
     }
 
     private static void triggerVinkiGUI1(Level level, LevelData next, Microsoft.Xna.Framework.Vector2 direction) {
@@ -146,6 +147,8 @@ public class VinkiModModule : EverestModule {
             GFX.Portraits["hug-light2c"] = GFX.Portraits["vinki/hug-light2c"];
             GFX.Portraits["hug1"] = GFX.Portraits["vinki/hug1"];
             GFX.Portraits["hug2"] = GFX.Portraits["vinki/hug2"];
+            GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
+            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/vinki/consolebg"];
         } else {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/madeline/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/madeline/idle"];
@@ -155,6 +158,8 @@ public class VinkiModModule : EverestModule {
             GFX.Portraits["hug-light2c"] = GFX.Portraits["madeline/hug-light2c"];
             GFX.Portraits["hug1"] = GFX.Portraits["madeline/hug1"];
             GFX.Portraits["hug2"] = GFX.Portraits["madeline/hug2"];
+            GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
+            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
         }
     }
 
@@ -246,6 +251,8 @@ public class VinkiModModule : EverestModule {
                     }
                 }
             }
+        } else if (tex==GFX.Game["pico8/atlas"]&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette")) {
+            return GFX.Game["pico8/vinki/atlas"];
         }
         if (among>-1) {
             // Among was changed? Alright, render it how you would've normally, but with the texture replaced.
@@ -263,11 +270,6 @@ public class VinkiModModule : EverestModule {
     private static void Pico8Code(On.Celeste.Pico8.Emulator.orig_Render orig, Emulator self) {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
             self.colors[8]=Calc.HexToColor("ffa300");
-            GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
-            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/vinki/consolebg"];
-        } else {
-            GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
-            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
         }
         orig(self);
     }
