@@ -21,7 +21,7 @@
     
     <Loop id="idle" path="lookout" delay="0.1" frames="5*9,6"/>
     <Anim id="lookRight" path="lookout" delay="0.08" frames="0-4" goto="looking"/>
-    <Anim id="lookLeft" path="lookout" delay="0.08" frames="15-17,3,4" goto="looking"/>
+    <Anim id="lookLeft" path="lookout" delay="0.08" frames="0-4" goto="looking"/>
     <Loop id="looking" path="lookout" delay="0.08" frames="4"/>
     <Loop id="lookingUp" path="lookout" frames="7"/>
     <Loop id="lookingUpRight" path="lookout" frames="8"/>

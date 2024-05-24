@@ -15,6 +15,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
 using VinkiMod.Module;
+using Celeste.Pico8;
+using Celeste.Mod.Procedurline;
 
 namespace Celeste.Mod.VinkiMod;
 
@@ -98,6 +100,7 @@ public class VinkiModModule : EverestModule {
                 if(!method.Name.StartsWith("Draw")) continue;
                 hooks.Add(new ILHook(method, DrawManipulator));
             }
+            On.Celeste.Pico8.Emulator.Render += Pico8Code;
         }
     }
 
@@ -137,8 +140,6 @@ public class VinkiModModule : EverestModule {
         if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette") {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/vinki/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/vinki/idle"];
-            GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
-            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/vinki/consolebg"];
             GFX.Portraits["hug-light1"] = GFX.Portraits["vinki/hug-light1"];
             GFX.Portraits["hug-light2a"] = GFX.Portraits["vinki/hug-light2a"];
             GFX.Portraits["hug-light2b"] = GFX.Portraits["vinki/hug-light2b"];
@@ -148,8 +149,6 @@ public class VinkiModModule : EverestModule {
         } else {
             GFX.Gui["hover/highlight"] = GFX.Game["Gui/hover/madeline/highlight"];
             GFX.Gui["hover/idle"] = GFX.Game["Gui/hover/madeline/idle"];
-            GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
-            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
             GFX.Portraits["hug-light1"] = GFX.Portraits["madeline/hug-light1"];
             GFX.Portraits["hug-light2a"] = GFX.Portraits["madeline/hug-light2a"];
             GFX.Portraits["hug-light2b"] = GFX.Portraits["madeline/hug-light2b"];
@@ -259,5 +258,17 @@ public class VinkiModModule : EverestModule {
 
     public static bool isGraffitiUser() {
         return Array.IndexOf(graffitiUsers,SkinModHelperModule.GetPlayerSkinName(-1))!=-1;
+    }
+
+    private static void Pico8Code(On.Celeste.Pico8.Emulator.orig_Render orig, Emulator self) {
+        if (SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug") {
+            self.colors[8]=Calc.HexToColor("ffa300");
+            GFX.Game["pico8/atlas"] = GFX.Game["pico8/vinki/atlas"];
+            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/vinki/consolebg"];
+        } else {
+            GFX.Game["pico8/atlas"] = GFX.Game["pico8/madeline/atlas"];
+            GFX.Game["pico8/consolebg"] = GFX.Game["pico8/madeline/consolebg"];
+        }
+        orig(self);
     }
 }
