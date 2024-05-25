@@ -38,6 +38,11 @@ public class GraffitiIndicator : Entity { // this should not show up in ahorn/lo
         }
         VinkiModModule.Session.vinkiRenderIt[0]=0;
         if (VinkiModModule.isGraffitiUser()&&self!=null) {
+            if (self.SceneAs<Level>().Session.Area.SID=="StrawberryJam2021/1-Beginner/NotYourBadeline") {
+                Depth = -999999999;
+            } else {
+                Depth = Depths.CrystalSpinners - 1;
+            }
             if (!VinkiModModule.Session.sessionStuffLoaded) {
                 if (Array.IndexOf(VinkiModModule.hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())!=-1) {
                     VinkiModModule.Session.sessionArtSpots=VinkiModModule.artSpots[Array.IndexOf(VinkiModModule.hasArtSpots,self.SceneAs<Level>().Session.Area.SID+"_"+self.SceneAs<Level>().Session.Area.Mode.ToString())];
