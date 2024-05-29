@@ -43,7 +43,8 @@ public class VinkiModModule : EverestModule {
         "decals/4-cliffside/rockaline","decals/5-temple/statue_f","decals/5-temple/statue_c","decals/SJ2021/BeginnerLobby/jizo_game_a","decals/vinki/graffiti/0_dream_x",//10-14
         "decals/vinki/graffiti/0_heart_x","decals/vinki/graffiti/0_dream2_x","decals/vinki/graffiti/0_bad_x","decals/vinki/graffiti/1_pico8_x","decals/vinki/graffiti/1_sicktricks_x",//15-19
         "decals/vinki/graffiti/0_dream3_x","decals/vinki/graffiti/1_gross_x","decals/vinki/graffiti/1_oshiro_x","decals/vinki/graffiti/1_dust_x","decals/vinki/graffiti/2_switch_x",//20-24
-        "decals/vinki/graffiti/2_clouds_x","decals/vinki/graffiti/2_tower_x","decals/vinki/graffiti/3_scribble1_x","decals/vinki/graffiti/3_scribble2_x","decals/vinki/graffiti/3_scribble3_x"//25-29
+        "decals/vinki/graffiti/2_clouds_x","decals/vinki/graffiti/2_tower_x","decals/vinki/graffiti/3_scribble1_x","decals/vinki/graffiti/3_scribble2_x","decals/vinki/graffiti/3_scribble3_x",//25-29
+        "decals/vinki/graffiti/4_cereal_x","decals/vinki/graffiti/4_loopy_x","decals/vinki/graffiti/4_sicktricks2_x","decals/vinki/graffiti/4_smileyface_x"//30-34
     ];
     public static String[] textureReplaceNamespaces = [
         "decals/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e",
@@ -51,10 +52,11 @@ public class VinkiModModule : EverestModule {
         "decals/vinki/rockavink","decals/vinki/statue_f","decals/vinki/statue_c","decals/vinki/jizo_game_a","decals/vinki/graffiti/0_dream_y",//10-14
         "decals/vinki/graffiti/0_heart_y","decals/vinki/graffiti/0_dream2_y","decals/vinki/graffiti/0_bad_y","decals/vinki/graffiti/1_pico8_y","decals/vinki/graffiti/1_sicktricks_y",//15-19
         "decals/vinki/graffiti/0_dream3_y","decals/vinki/graffiti/1_gross_y","decals/vinki/graffiti/1_oshiro_y","decals/vinki/graffiti/1_dust_y","decals/vinki/graffiti/2_switch_y",//20-24
-        "decals/vinki/graffiti/2_clouds_y","decals/vinki/graffiti/2_tower_y","decals/vinki/graffiti/3_scribble1_y","decals/vinki/graffiti/3_scribble2_y","decals/vinki/graffiti/3_scribble3_y"//25-29
+        "decals/vinki/graffiti/2_clouds_y","decals/vinki/graffiti/2_tower_y","decals/vinki/graffiti/3_scribble1_y","decals/vinki/graffiti/3_scribble2_y","decals/vinki/graffiti/3_scribble3_y",//25-29
+        "decals/vinki/graffiti/4_cereal_y","decals/vinki/graffiti/4_loopy_y","decals/vinki/graffiti/4_sicktricks2_y","decals/vinki/graffiti/4_smileyface_y"//30-34
     ];
     // Add _Normal, _BSide, or _CSide based on the side.
-    public static String[] hasArtSpots = ["Celeste/0-Intro_Normal","Celeste/1-ForsakenCity_Normal","Celeste/2-OldSite_Normal","Celeste/3-CelestialResort_Normal","Celeste/4-GoldenRidge_Normal","Celeste/5-MirrorTemple_Normal","StrawberryJam2021/0-Lobbies/1-Beginner_Normal","Celeste/3-CelestialResort_BSide","StrawberryJam2021/1-Beginner/joltik_Normal","StrawberryJam2021/1-Beginner/NotYourBadeline_Normal"];
+    public static String[] hasArtSpots = ["Celeste/0-Intro_Normal","Celeste/1-ForsakenCity_Normal","Celeste/2-OldSite_Normal","Celeste/3-CelestialResort_Normal","Celeste/4-GoldenRidge_Normal","Celeste/5-MirrorTemple_Normal","StrawberryJam2021/0-Lobbies/1-Beginner_Normal","Celeste/3-CelestialResort_BSide","StrawberryJam2021/1-Beginner/joltik_Normal","StrawberryJam2021/1-Beginner/NotYourBadeline_Normal","StrawberryJam2021/1-Beginner/coffe_Normal"];
     public static int[][][] artSpots = [//x,y,w,h,textureNamespaces directory
         [[-180,120,80,50,0]],//intro
         [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[3040,-1880,40,24,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
@@ -62,28 +64,31 @@ public class VinkiModModule : EverestModule {
         [[1252,20,24,24,23],[1590,-75,50,50,9],[5632,-69,56,32,18],[3193,-555,16,8,19],[5644,280,40,50,21],[5976,-174,24,40,22]],//celestial resort, not hotel
         [[5145,-1405,100,25,10],[3810,-426,32,32,24]],//golden ridge
         [[3960,424,80,120,11],[7248,-504,240,50,12]],//mirror temple
-        [[3272,324,64,32,13]],//sj beginner lobby
+        [[3272,324,64,32,13],[1291,-374,24,16,30]],//sj beginner lobby
         [[10712,-457,80,120,22]],//celestial resort b-side
         [[229,-1420,40,8,25],[204,-4317,62,8,26]],//sj-1 midnight spire
-        [[760,165,64,1,27],[2376,170,32,1,28],[3504,116,64,64,29]]//sj-1 seeing is believing
+        [[760,165,64,1,27],[2376,170,32,1,28],[3504,116,64,64,29]],//sj-1 seeing is believing
+        [[1812,-238,32,48,31],[5836,-1202,13,32,32],[6996,-1044,24,24,33]]//sj-1 loopy lagoon
     ];
 
     public static String[] decalNamespaces = [
         "0_heart","0_dream","0_dream2","0_bad","1_pico8",//0-4
         "1_sicktricks","0_dream3","1_gross","1_oshiro","1_dust",//5-9
-        "2_clouds","2_tower","3_scribble1","3_scribble2","3_scribble3"//10-14
+        "2_clouds","2_tower","3_scribble1","3_scribble2","3_scribble3",//10-14
+        "4_cereal","4_loopy","4_sicktricks2","4_smileyface"//15-19
     ];
 
-    public static String[] hasCustomDecals = ["Celeste/2-OldSite_Normal","Celeste/3-CelestialResort_Normal","StrawberryJam2021/5-Grandmaster/maya_Normal","Celeste/3-CelestialResort_BSide","StrawberryJam2021/1-Beginner/joltik_Normal","StrawberryJam2021/0-Lobbies/1-Beginner_Normal","StrawberryJam2021/1-Beginner/NotYourBadeline_Normal"];
+    public static String[] hasCustomDecals = ["Celeste/2-OldSite_Normal","Celeste/3-CelestialResort_Normal","StrawberryJam2021/5-Grandmaster/maya_Normal","Celeste/3-CelestialResort_BSide","StrawberryJam2021/1-Beginner/joltik_Normal","StrawberryJam2021/0-Lobbies/1-Beginner_Normal","StrawberryJam2021/1-Beginner/NotYourBadeline_Normal","StrawberryJam2021/1-Beginner/coffe_Normal"];
 
     public static int[][][] customDecals = [//x,y,w,h,bg/fg/sfg=0/1/2,decals/vinki/graffiti/(this index in decalNamespaces)(_x or _y depending on off/on status).png
-        [[130,-510,1,1,0,0],[1760,524,1,1,1,1],[1412,279,1,1,1,2],[852,-1644,1,1,0,3],[896,-12,1,1,1,6],[111,1137,1,1,0,0]],//old site
+        [[130,-510,1,1,0,0],[1760,524,1,1,1,1],[1412,279,1,1,1,2],[860,-1636,1,1,0,3],[896,-12,1,1,1,6],[111,1137,1,1,0,0]],//old site
         [[1268,28,1,1,0,9],[5660,-68,1,1,0,4],[3164,-556,1,1,0,5],[5664,297,1,1,0,7],[5992,-169,1,1,0,8]],//celestial resort
         [[-6100,1397,1,1,0,4]],//sj-5 pumber
         [[10752,-392,1,1,0,8]],//celestial resort b-side
         [[247,-1426,1,1,0,10],[236,-4325,1,1,0,11]],//sj-1 midnight spire
-        [[684,1428,1,1,0,11]],//sj beginner lobby
-        [[804,145,1,1,0,12],[2391,160,1,1,0,13],[3520,125,1,1,0,14]]//sj-1 seeing is believing
+        [[684,1428,1,1,0,11],[1303,-385,1,1,0,15],[1528,1386,1,1,0,14]],//sj beginner lobby
+        [[804,145,1,1,0,12],[2391,160,1,1,0,13],[3520,125,1,1,0,14]],//sj-1 seeing is believing
+        [[228,105,1,1,0,15],[1835,-237,1,1,0,16],[5841,-1196,1,1,0,17],[7008,-1035,1,1,0,18]]//sj-1 loopy lagoon
     ];
 
     // For each [a,b], it replaces texture of index b in texture(Replace)Namespaces when the texture of index a is changed.
