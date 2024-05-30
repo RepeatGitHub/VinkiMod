@@ -10,7 +10,6 @@
   - SkinName: "Vinki_Scug"
     Player_List: true
     Silhouette_List: false
-    SilhouetteMode: false
     Character_ID: "vinki_scug"
     OtherSprite_Path: "repeat/slugcats/normal/vinki"
 
@@ -18,7 +17,6 @@
   - SkinName: "Vinki_Scug_Silhouette"
     Player_List: false
     Silhouette_List: true
-    SilhouetteMode: true
     Character_ID: "vinki_scug_silhouette"
     OtherSprite_Path: "repeat/slugcats/normal/vinki"
 
