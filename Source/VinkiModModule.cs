@@ -211,7 +211,7 @@ public class VinkiModModule : EverestModule {
             var myLvl=Array.IndexOf(hasCustomDecals,self.Session.Area.SID+"_"+self.Session.Area.Mode.ToString());
             for (var a=0;a<customDecals[myLvl].Length;a++) {
                 // Then, for each custom decal in the array, it places that decal in the level.
-                Logger.Log(LogLevel.Warn,"VinkiMod_vinkiRenderer",a.ToString());
+                //Logger.Log(LogLevel.Warn,"VinkiMod_vinkiRenderer",a.ToString());
                 var myDepth=customDecals[myLvl][a][4];
                 if (myDepth==0) {
                     myDepth=8029;
@@ -294,7 +294,7 @@ public class VinkiModModule : EverestModule {
             GFX.Game["pico8/atlas"]=GFX.Game["pico8/vinki/atlas"];
         } else {
             GFX.Game["pico8/atlas"]=GFX.Game["pico8/madeline/atlas"];
-        }Logger.Log(LogLevel.Warn,"vink8",SkinModHelperModule.GetPlayerSkinName(-1));
+        }//Logger.Log(LogLevel.Warn,"vink8",SkinModHelperModule.GetPlayerSkinName(-1));
         orig(self,returnTo,levelX,levelY);
         //if (GFX.Game["pico8/atlas"]&&(SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug"||SkinModHelperModule.GetPlayerSkinName(-1)=="Vinki_Scug_Silhouette")) {
         //    Logger.Log(LogLevel.Warn,"vinkipico1","YIPPEE");

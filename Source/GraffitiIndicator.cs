@@ -31,10 +31,10 @@ public class GraffitiIndicator : Entity { // this should not show up in ahorn/lo
     //        Depth = (Depths.FGTerrain + Depths.FGDecals) / 2;
     //    }
         Player self = null;
-        Logger.Log(LogLevel.Warn,"VinkiModa","aaaa");
+        //Logger.Log(LogLevel.Warn,"VinkiModa","aaaa");
         if (Scene.Tracker.GetEntity<Player>()!=null) {
             self = Scene.Tracker.GetEntity<Player>();
-            Logger.Log(LogLevel.Warn,"VinkiModc","cccc");
+            //Logger.Log(LogLevel.Warn,"VinkiModc","cccc");
         }
         VinkiModModule.Session.vinkiRenderIt[0]=0;
         if (VinkiModModule.isGraffitiUser()&&self!=null) {
@@ -62,13 +62,13 @@ public class GraffitiIndicator : Entity { // this should not show up in ahorn/lo
                             if (VinkiModModule.Settings.GraffitiButton.Pressed) {
                                 VinkiModModule.doGraffiti(VinkiModModule.Session.sessionArtSpots[a][4]);
                             }
-                            Logger.Log(LogLevel.Warn,"vinkibutonpres",VinkiModModule.Session.vinkiRenderIt[1].ToString());
+                            //Logger.Log(LogLevel.Warn,"vinkibutonpres",VinkiModModule.Session.vinkiRenderIt[1].ToString());
                             a=VinkiModModule.Session.sessionArtSpots.Length;
                         }
                     }
                 }
             }
-            Logger.Log(LogLevel.Warn,"VinkiModb",VinkiModModule.Session.vinkiRenderIt[2].ToString());
+            //Logger.Log(LogLevel.Warn,"VinkiModb",VinkiModModule.Session.vinkiRenderIt[2].ToString());
         }
     }
 
