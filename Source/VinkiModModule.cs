@@ -44,7 +44,8 @@ public class VinkiModModule : EverestModule {
         "decals/vinki/graffiti/0_heart_x","decals/vinki/graffiti/0_dream2_x","decals/vinki/graffiti/0_bad_x","decals/vinki/graffiti/1_pico8_x","decals/vinki/graffiti/1_sicktricks_x",//15-19
         "decals/vinki/graffiti/0_dream3_x","decals/vinki/graffiti/1_gross_x","decals/vinki/graffiti/1_oshiro_x","decals/vinki/graffiti/1_dust_x","decals/vinki/graffiti/2_switch_x",//20-24
         "decals/vinki/graffiti/2_clouds_x","decals/vinki/graffiti/2_tower_x","decals/vinki/graffiti/3_scribble1_x","decals/vinki/graffiti/3_scribble2_x","decals/vinki/graffiti/3_scribble3_x",//25-29
-        "decals/vinki/graffiti/4_cereal_x","decals/vinki/graffiti/4_loopy_x","decals/vinki/graffiti/4_sicktricks2_x","decals/vinki/graffiti/4_smileyface_x"//30-34
+        "decals/vinki/graffiti/4_cereal_x","decals/vinki/graffiti/4_loopy_x","decals/vinki/graffiti/4_sicktricks2_x","decals/vinki/graffiti/4_smileyface_x",//30-34
+        "decals/vinki/graffiti/1_cycle_x"//35-39
     ];
     public static String[] textureReplaceNamespaces = [
         "decals/vinki/car/body","decals/vinki/big_sign_b","decals/vinki/camping_medium","decals/vinki/hanging_sign","decals/vinki/big_sign_e",
@@ -53,7 +54,8 @@ public class VinkiModModule : EverestModule {
         "decals/vinki/graffiti/0_heart_y","decals/vinki/graffiti/0_dream2_y","decals/vinki/graffiti/0_bad_y","decals/vinki/graffiti/1_pico8_y","decals/vinki/graffiti/1_sicktricks_y",//15-19
         "decals/vinki/graffiti/0_dream3_y","decals/vinki/graffiti/1_gross_y","decals/vinki/graffiti/1_oshiro_y","decals/vinki/graffiti/1_dust_y","decals/vinki/graffiti/2_switch_y",//20-24
         "decals/vinki/graffiti/2_clouds_y","decals/vinki/graffiti/2_tower_y","decals/vinki/graffiti/3_scribble1_y","decals/vinki/graffiti/3_scribble2_y","decals/vinki/graffiti/3_scribble3_y",//25-29
-        "decals/vinki/graffiti/4_cereal_y","decals/vinki/graffiti/4_loopy_y","decals/vinki/graffiti/4_sicktricks2_y","decals/vinki/graffiti/4_smileyface_y"//30-34
+        "decals/vinki/graffiti/4_cereal_y","decals/vinki/graffiti/4_loopy_y","decals/vinki/graffiti/4_sicktricks2_y","decals/vinki/graffiti/4_smileyface_y",//30-34
+        "decals/vinki/graffiti/1_cycle_y"//35-39
     ];
     // Add _Normal, _BSide, or _CSide based on the side.
     public static String[] hasArtSpots = ["Celeste/0-Intro_Normal","Celeste/1-ForsakenCity_Normal","Celeste/2-OldSite_Normal","Celeste/3-CelestialResort_Normal","Celeste/4-GoldenRidge_Normal","Celeste/5-MirrorTemple_Normal","StrawberryJam2021/0-Lobbies/1-Beginner_Normal","Celeste/3-CelestialResort_BSide","StrawberryJam2021/1-Beginner/joltik_Normal","StrawberryJam2021/1-Beginner/NotYourBadeline_Normal","StrawberryJam2021/1-Beginner/coffe_Normal"];
@@ -61,7 +63,7 @@ public class VinkiModModule : EverestModule {
         [[-180,120,80,50,0]],//intro
         [[1115,-1072,30,20,1],[695,-1064,40,30,2],[1742,-1440,38,22,3],[3040,-1880,40,24,3],[2233,-1344,40,66,4],[2665,-1600,20,25,5],[3340,-1950,70,35,6],[3465,-2575,75,30,7],[3985,-3140,40,80,8]],//forsaken city
         [[790,1725,50,20,2],[1724,508,144,80,14],[115,-515,35,50,15],[1400,268,22,22,16],[835,-1645,32,40,17],[884,-28,24,32,20],[34,1796,60,100,8]],//old site
-        [[1252,20,24,24,23],[1590,-75,50,50,9],[5632,-69,56,32,18],[3193,-555,16,8,19],[5644,280,40,50,21],[5976,-174,24,40,22]],//celestial resort, not hotel
+        [[1256,20,24,24,23],[1590,-75,50,50,9],[5632,-69,56,32,18],[3193,-555,16,8,19],[5644,280,40,50,21],[5976,-174,24,40,22],[5720,-649,16,1,25]],//celestial resort, not hotel
         [[5145,-1405,100,25,10],[3810,-426,32,32,24]],//golden ridge
         [[3960,424,80,120,11],[7248,-504,240,50,12]],//mirror temple
         [[3272,324,64,32,13],[1291,-374,24,16,30]],//sj beginner lobby
@@ -139,6 +141,12 @@ public class VinkiModModule : EverestModule {
         graffitiSetup(session);
     }
     private static void vinkiGUI() {
+        // This here is a failsafe for in case any modded textures end up being null, preventing log spam.
+        for (var a=0;a<textureNamespaces.Length;a++) {
+            if (!GFX.Game.Has(textureNamespaces[a])) {
+                textureNamespaces[a]="decals/vinki/zzz_unused";
+            }
+        }
         // This here is a failsafe for whenever the Session.vinkiRenderIt is shorter than it should be.
         if (Session.vinkiRenderIt.Length<5) {
             for (var a=Session.vinkiRenderIt.Length;a<7;a=Session.vinkiRenderIt.Length) {
